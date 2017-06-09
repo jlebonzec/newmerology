@@ -3,9 +3,10 @@
 {# TODO change language #}
 <head>
     <meta charset="UTF-8">
-    <title>Numerology home page | Newmerology</title>
+    <title>{{ title or 'Newmerology' }}</title>
 </head>
 <body>
-    Well hello there, little buddy!
+{% block page_body %}
+{% endblock %}
 </body>
 </html>
