@@ -62,7 +62,7 @@ class AbstractContentModel(models.Model):
         value = 3
         explanation = "That's a great result!"
     """
-    value = models.SmallIntegerField(max_length=2, null=False)
+    value = models.SmallIntegerField(null=False)
     explanation = models.TextField(default='', null=False, blank=True)
 
     class Meta:
