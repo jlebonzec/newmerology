@@ -43,10 +43,25 @@ class Number(models.Model):
     computable Numbers.
 
     example: Life Path pattern Number is a computable Number
+
+    The position indicates the order for display.
+        - -1 hides the element
+        - Order is ascending
+        - If two elements have the same position (it should not happen), the code is then used
+
+    The computation method is a string corresponding to an existing python method.
+    It will be imported when computing elements.
     """
     code = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=120, null=False, blank=False)
     description = models.TextField(default='', null=False, blank=True)
+    position = models.SmallIntegerField(default=0)
+    computation_method = models.CharField(max_length=80, null=True)
+
+    # TODO: Create methods to handle position while inserting or swapping
+
+    class Meta:
+        ordering = ['position', 'code']
 
     def __repr__(self):
         return "<Number: %s>" % self.code
