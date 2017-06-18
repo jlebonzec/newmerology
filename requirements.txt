@@ -1,0 +1,6 @@
+django
+django-compressor
+django-htmlmin
+django-material
+django-sass-processor
+libsass
