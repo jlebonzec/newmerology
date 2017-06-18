@@ -1,0 +1,18 @@
+{# Custom form rendering for the Person entries #}
+{% load material_form %}
+{% form form=form layout=form.layout %}
+    {# -- Add required attributes #}
+    {% attr form.given_names 'widget' required %}required{% endattr %}
+    {% attr form.last_name 'widget' required %}required{% endattr %}
+    {% attr form.birth 'widget' required %}required{% endattr %}
+
+    {# -- Data validation #}
+    {% attr form.given_names 'widget' data-validate %}1{% endattr %}
+
+    {# -- MISC #}
+    {% attr form.birth 'widget' class append %}datepicker{% endattr %}
+{% endform %}
+
+<button type="submit" class="btn-floating btn-large waves-effect waves-circle waves-light submit-form">
+    <i class="material-icons">send</i>
+</button>

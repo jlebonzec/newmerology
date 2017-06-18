@@ -1,0 +1,14 @@
+{% extends 'calculator/base.djt' %}
+{% load material_form %}
+{% block page_body %}
+    {{ super }}
+
+    <div class="row">
+        <form class="col s12 l10 offset-l1 xl8 offset-xl2"
+              action="{%  url 'calc:home' %}" method="POST">
+            {% csrf_token %}
+            {% include 'forms/person.djt' with form=person_form %}
+        </form>
+    </div>
+
+{% endblock %}

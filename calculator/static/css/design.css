@@ -1,0 +1,77 @@
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300; }
+
+header {
+  height: 122px;
+  margin-bottom: 3em; }
+  header h1 {
+    width: 100%; }
+
+form .help-block {
+  line-height: 12px;
+  position: relative;
+  top: -10px;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 75%; }
+
+.submit-form {
+  float: right; }
+  .submit-form::after {
+    clear: both; }
+
+.group-info input {
+  display: inline-block; }
+
+.number-circle {
+  border-radius: 50%;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  padding: 3px;
+  margin-left: 5px;
+  border: 2px solid #666;
+  color: #666;
+  text-align: center;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  cursor: pointer; }
+
+.number-wrapper {
+  background: lightcyan; }
+  .number-wrapper .number {
+    background: lightpink;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 3px 10px;
+    font-size: 14px; }
+  .number-wrapper .number-name {
+    display: inline-block; }
+  .number-wrapper .number-circle {
+    border-radius: 50%;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    padding: 3px;
+    margin-left: 5px;
+    border: 2px solid #666;
+    color: #666;
+    text-align: center;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    cursor: pointer; }
+  .number-wrapper .example-wrapper {
+    margin: 0;
+    padding: 0; }
+    .number-wrapper .example-wrapper li {
+      font-family: monospace;
+      list-style: none; }
+  .number-wrapper .number-description {
+    display: block;
+    margin-top: 3px;
+    font-style: italic;
+    font-weight: normal; }
+
+.result-wrapper {
+  padding: 3px 10px; }
+
+/*# sourceMappingURL=../../../../../../../../static/css/design.css.map */
