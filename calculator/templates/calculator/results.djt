@@ -3,78 +3,63 @@
 {% block page_body %}
     {{ super }}
     {# Mockup! #}
-    <h2>{{ person.last_name|upper }} {{ person.first_name|title}}, {{ person.middle_names|join:', ' }} {{ person.birth|date:"SHORT_DATE_FORMAT" }}</h2>
-    {% for number in person.numbers %}
-        <div class="number-wrapper">
-            <div class="number">
-                <h3 class="number-name">{{ number.name }}</h3>
-                <div class="card horizontal hoverable">
-                    <div class="card-image valign-wrapper">
-                        <a class="number-circle" href="#tab-{{ number.code }}-3">{{ number.value }}</a>
-                    </div>
-                    <div class="card-stacked">
-                        <div class="card-content">
-                            <p>{{ number.description }}</p>
-                        </div>
-                        <div class="card-tabs">
-                            <ul class="tabs tabs-fixed-width">
-                                <li class="tab">
-                                    <a href="#tab-{{ number.code }}-1" class="{% if number.result.explanation %}active{% endif %}">
-                                        {% trans "Personal Explanation" %}
-                                    </a>
-                                </li>
-                                <li class="tab">
-                                <a href="#tab-{{ number.code }}-2" class="{% if not number.result.explanation %}active{% endif %}">
-                                    {% trans "General Explanation" %}
-                                </a>
-                                </li>
-                                <li class="tab">
-                                    <a href="#tab-{{ number.code }}-3">
-                                        {% trans "Calculation Details" %}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-content grey lighten-4">
-                            <div id="tab-{{ number.code }}-1">{{ number.result.explanation }}</div>
-                            <div id="tab-{{ number.code }}-2">{{ number.template.explanation }}</div>
-                            <div id="tab-{{ number.code }}-3">
-                                <ul class="example-wrapper">
-                                    {% for detail in number.example %}
-                                        <li class="example">{{ detail }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <h2>
+        <span class="last_name">
+            {{ person.last_name|upper }}
+        </span>
 
-{#            #}
-{#                <label class="number-circle" for="toggle-ex-{{ number.code }}">{{ number.value }}</label>#}
-{#                <input id="toggle-ex-{{ number.code }}" class="toggle-example" type="checkbox">#}
-{#                <ul class="example-wrapper">#}
-{#                    {% for detail in number.example %}#}
-{#                        <li class="example">{{ detail }}</li>#}
-{#                    {% endfor %}#}
-{#                </ul>#}
-{#                <em class="number-description">{{ number.description }}</em>#}
-{#            </div>#}
-{##}
-{#            <div class="result-wrapper">#}
-{#                <div class="explanation-wrapper">#}
-                    {# TODO: Create tabs to switch #}
-{#                    <div class="explanation template" id="template_{{ number.template.id }}">#}
-{#                        <input type="hidden" name="template_value" value="{{ number.template.value}}" />#}
-{#                        {{ number.template.explanation }}#}
-{#                        <button type="submit" data-for="template_{{ number.template.id }}">Go!</button>#}
-{#                    </div>#}
-{#                    <div class="explanation result" id="result_{{ number.result.id }}">#}
-{#                        <input type="hidden" name="result_value" value="{{ number.result.value}}" />#}
-{#                        {{ number.result.explanation }}#}
-{#                        <button type="submit" data-for="result_{{ number.result.id }}">Go!</button>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
+        <span class="given_names">
+            {{ person.given_names|title }}
+        </span>
+
+        <span class="birth">
+            {{ person.birth|date:"SHORT_DATE_FORMAT" }}
+        </span>
+    </h2>
+    {% for number in person.numbers %}
+        <div class="number-wrapper card-panel purple darken-3 hoverable">
+            <h3 class="number-name">
+                <label class="browser-default" for="example-{{ number.code }}">
+                    {{ number.name }}
+                </label>
+
+                <span class="number-circle" >
+                    {{ number.value }}
+                </span>
+            </h3>
+
+            <input type="checkbox" id="example-{{ number.code }}" class="toggle-example"/>
+            <ul class="example-wrapper">
+                {% for detail in number.example %}
+                    <li class="example">{{ detail }}</li>
+                {% endfor %}
+            </ul>
+
+            <p class="number-description">{{ number.description }}</p>
+
+            <div class="explanations purple lighten-5">
+                <ul class="tabs tabs-fixed-width">
+                    <li class="tab">
+                        <a href="#tab-{{ number.code }}-1" class="{% if number.result.explanation %}active{% endif %}">
+                            {% trans "Personal Explanation" %}
+                        </a>
+                    </li>
+
+                    <li class="tab">
+                    <a href="#tab-{{ number.code }}-2" class="{% if not number.result.explanation %}active{% endif %}">
+                        {% trans "General Explanation" %}
+                    </a>
+                    </li>
+                </ul>
+                <p id="tab-{{ number.code }}-1">
+                    {{ number.result.explanation }}<br>
+                    {% lorem 4 %}
+                </p>
+                <p id="tab-{{ number.code }}-2">
+                    {{ number.template.explanation }}<br>
+                    {% lorem 5 %}
+                </p>
+            </div>
         </div>
     {% endfor %}
 {% endblock %}
