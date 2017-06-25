@@ -1,4 +1,5 @@
-$color-on-card: #f3e5f5;
+$card-color: #4a148c;
+$card-color-text: #f3e5f5;
 
 // -- General design
 h1, h2, h3, h4, h5, h6 {
@@ -12,7 +13,6 @@ p {
 
 .tabs .tab a {
   font-size: 1.1rem;
-  // TODO: color tabs, tabs:hover, indicator
 }
 
 // -- End of general design
@@ -63,15 +63,17 @@ h2 {
 
 .number-wrapper {
   .number-name, .example-wrapper, .number-description {
-    color: $color-on-card;
+    color: $card-color-text;
   }
   //color: $color-on-card;
 
   .number-name {
     position: relative;
 
-    // Counter materialize here
     label {
+      cursor: pointer;
+
+      // Counteract materialize here
       font-size: inherit;
       color: inherit;
     }
@@ -115,8 +117,8 @@ h2 {
     position: absolute;
     right: 0;
     bottom: -8px; // Computed from the font-size
-    color: $color-on-card;
-    border-color: $color-on-card;
+    color: $card-color-text;
+    border-color: $card-color-text;
   }
 
   .explanations {
@@ -124,6 +126,19 @@ h2 {
 
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
+
+    .tabs a {
+      color: $card-color;
+
+      &:hover, &:active {
+        color: #7b1fa2;
+      }
+    }
+
+    .indicator {
+      background: $card-color;
+    }
+  // TODO: color tabs, tabs:hover, indicator
 
     p {
       padding: .5rem;

@@ -17,7 +17,7 @@
         </span>
     </h2>
     {% for number in person.numbers %}
-        <div class="number-wrapper card-panel purple darken-3 hoverable">
+        <div class="number-wrapper card-panel purple darken-4 hoverable">
             <h3 class="number-name">
                 <label class="browser-default" for="example-{{ number.code }}">
                     {{ number.name }}
