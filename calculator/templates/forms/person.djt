@@ -13,6 +13,6 @@
     {% attr form.birth 'widget' class append %}datepicker{% endattr %}
 {% endform %}
 
-<button type="submit" class="btn-floating btn-large waves-effect waves-circle waves-light submit-form">
+<button type="submit" class="purple darken-4 btn-floating btn-large waves-effect waves-circle waves-light submit-form">
     <i class="material-icons">send</i>
 </button>

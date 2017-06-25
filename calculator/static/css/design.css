@@ -14,17 +14,39 @@ header {
   header h1 {
     width: 100%; }
 
-form .help-block {
-  line-height: 12px;
-  position: relative;
-  top: -10px;
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 75%; }
-
-.submit-form {
-  float: right; }
-  .submit-form::after {
-    clear: both; }
+form {
+  /* label focus color */
+  /* label underline focus color */ }
+  form .help-block {
+    line-height: 12px;
+    position: relative;
+    top: -10px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 75%; }
+  form .input-field input[type=text]:focus + label {
+    color: #4a148c; }
+  form .input-field input[type=text]:focus {
+    border-bottom: 1px solid #4a148c;
+    box-shadow: 0 1px 0 0 #4a148c; }
+  form select:focus {
+    outline: #f3e5f5; }
+  form .picker__day--selected,
+  form .picker__day--selected:hover,
+  form .picker--focused .picker__day--selected,
+  form .picker__date-display {
+    background-color: #4a148c; }
+  form .picker__day.picker__day--today, form .picker__close, form .picker__today {
+    color: #4a148c; }
+  form .picker__nav--prev:hover, form .picker__nav--next:hover {
+    background-color: #f3e5f5; }
+  form .picker__select--month:focus, form .picker__select--year:focus {
+    border-color: #f3e5f5; }
+  form .picker__weekday-display {
+    background-color: #380d6b; }
+  form .submit-form {
+    float: right; }
+    form .submit-form::after {
+      clear: both; }
 
 .number-circle {
   border-radius: 50%;

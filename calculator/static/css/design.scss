@@ -27,21 +27,61 @@ header {
 }
 
 // -- Form
-form .help-block {
-  line-height: 12px;
-  position: relative;
-  top: -10px;
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 75%;
-}
+form {
+  .help-block {
+    line-height: 12px;
+    position: relative;
+    top: -10px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 75%;
+  }
 
-.submit-form {
-  float: right;
+  /* label focus color */
+    .input-field input[type=text]:focus + label {
+    color: $card-color;
+  }
+  /* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid $card-color;
+    box-shadow: 0 1px 0 0 $card-color;
+  }
 
-  &::after {
-    clear: both;
+  select:focus {
+    outline: $card-color-text;
+  }
+
+  .picker__day--selected,
+  .picker__day--selected:hover,
+  .picker--focused .picker__day--selected,
+  .picker__date-display  {
+    background-color: $card-color;
+  }
+
+  .picker__day.picker__day--today, .picker__close, .picker__today {
+    color: $card-color;
+  }
+
+  .picker__nav--prev:hover, .picker__nav--next:hover {
+    background-color: $card-color-text;
+  }
+
+  .picker__select--month:focus, .picker__select--year:focus {
+    border-color: $card-color-text;
+  }
+
+  .picker__weekday-display {
+    background-color: #380d6b;
+  }
+
+  .submit-form {
+    float: right;
+
+    &::after {
+      clear: both;
+    }
   }
 }
+
 
 // -- Number in a circle
 .number-circle {
