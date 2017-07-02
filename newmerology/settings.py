@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'django_translate',
     'calculator.apps.CalculatorConfig',
     'material',
     'material.frontend',
@@ -52,8 +53,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django_translate.middleware.LocaleMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
 ROOT_URLCONF = 'newmerology.urls'
@@ -110,16 +113,32 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+LANGUAGES = (
+    ('en', 'english'),
+    ('fr', 'french'),
+)
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
+# In DEBUG we want to use DebugTranslator - it reloads
+# your translations on-the-fly so it's very easy to work with them
+# It will also throw an exception whenever there is any problem
+# with your translations (e.g. a translation is not found) - no more
+# guessing "why my translations are not used?"
+if DEBUG:
+    from python_translate.translations import DebugTranslator
+    TRANZ_TRANSLATOR_CLASS = DebugTranslator
+
+from python_translate import loaders
+TRANZ_LOADERS = {
+    "po": loaders.PoFileLoader(),
+    "yml": loaders.YamlFileLoader()
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

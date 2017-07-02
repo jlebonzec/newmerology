@@ -1,9 +1,9 @@
-{% load static %}
-{% load sass_tags %}
 {% load i18n %}
 {% load l10n %}
-{# Translators: name of the site #}
-{% trans "site.title" as SITE_TITLE %}
+{% load sass_tags %}
+{% load static %}
+{% load tranz %}
+
 {% get_current_language as LN %}
 <!DOCTYPE html>
 <html lang="{{ LN }}">
@@ -11,7 +11,7 @@
 {# TODO minify every answer #}
 <head>
     <meta charset="UTF-8">
-    <title>{% if title %}{% trans title %} | {% endif %}{{ SITE_TITLE }}</title>
+    <title>{% if title %}{% tranz title %} | {% endif %}{% tranz "site.title" %}</title>
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.css' %}">
@@ -29,7 +29,11 @@
 <header class="purple darken-4 valign-wrapper">
     {% block page_header %}
         <h1 class="center-align white-text">
-            {% trans title|default:SITE_TITLE %}
+            {% if title %}
+                {% tranz title %}
+            {% else %}
+                {% tranz "site.title" %}
+            {% endif %}
         </h1>
     {% endblock %}
 </header>

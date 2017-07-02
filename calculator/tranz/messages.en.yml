@@ -1,0 +1,7 @@
+site:
+  title: "Newmerology"
+
+results:
+  explanation:
+    general: "General Explanation"
+    personal: "Personal Explanation"

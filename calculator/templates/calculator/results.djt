@@ -1,5 +1,6 @@
 {% extends 'calculator/base.djt' %}
 {% load i18n%}
+{% load tranz %}
 {% block page_body %}
     {{ super }}
     {# Mockup! #}
@@ -41,14 +42,14 @@
                 <ul class="tabs tabs-fixed-width">
                     <li class="tab">
                         <a href="#tab-{{ number.code }}-1" class="{% if number.result.explanation %}active{% endif %}">
-                            {% trans "Personal Explanation" %}
+                            {% tranz "results.explanation.personal" %}
                         </a>
                     </li>
 
                     <li class="tab">
-                    <a href="#tab-{{ number.code }}-2" class="{% if not number.result.explanation %}active{% endif %}">
-                        {% trans "General Explanation" %}
-                    </a>
+                        <a href="#tab-{{ number.code }}-2" class="{% if not number.result.explanation %}active{% endif %}">
+                            {% tranz "results.explanation.general" %}
+                        </a>
                     </li>
                 </ul>
                 <p id="tab-{{ number.code }}-1">

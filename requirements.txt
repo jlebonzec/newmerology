@@ -3,4 +3,5 @@ django-compressor
 django-htmlmin
 django-material
 django-sass-processor
+django-translate
 libsass
