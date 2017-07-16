@@ -1,8 +1,9 @@
 from django.db import models
 
 import datetime
+from importlib import import_module
 
-from calculator.config import GIVEN_NAMES_SEPARATOR
+from calculator.config import COMPUTATION_METHODS_PATH, GIVEN_NAMES_SEPARATOR
 
 # TODO: names and __str__ / __repr__
 
@@ -33,6 +34,10 @@ class Person(models.Model):
     birth = models.DateField(null=False, blank=False, help_text="YYYY-MM-DD")
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=False, blank=False)
 
+    class Meta:
+        unique_together = ('given_names', 'last_name', 'birth')
+        index_together = ('given_names', 'last_name', 'birth')
+
     @property
     def first_name(self):
         return self.given_names.split(GIVEN_NAMES_SEPARATOR)[0].title()
@@ -41,9 +46,15 @@ class Person(models.Model):
     def middle_names(self):
         return [n.title() for n in self.given_names.split(GIVEN_NAMES_SEPARATOR)[1:]]
 
-    class Meta:
-        unique_together = ('given_names', 'last_name', 'birth')
-        index_together = ('given_names', 'last_name', 'birth')
+    @property
+    def numbers(self):
+        if self._numbers is None:
+            self.refresh_numbers()
+        return self._numbers
+
+    def __init__(self, *args, **kwargs):
+        super(Person, self).__init__(*args, **kwargs)
+        self._numbers = None
 
     def __repr__(self):
         names = self.given_names.split(' ')
@@ -52,6 +63,12 @@ class Person(models.Model):
 
     def __str__(self):
         return "%s %s" % (self.first_name.title(), self.last_name.upper())
+
+    def refresh_numbers(self):
+        computations = Number.objects.all()
+        for comp in computations:
+            comp.person = self
+        self._numbers = computations
 
 
 class Number(models.Model):
@@ -75,18 +92,62 @@ class Number(models.Model):
     computation_method = models.CharField(max_length=80, null=True)
 
     # TODO: Create methods to handle position while inserting or swapping
-    # TODO: Insert the computation methods in there (use mixins)
-    # TODO: Create two methods to retrieve the appropriate template and user_result
     # TODO: How to handle grid and numerological table?
 
     class Meta:
         ordering = ['position', 'code']
+
+    def __init__(self, *args, **kwargs):
+        super(Number, self).__init__(*args, **kwargs)
+        self._template = None
+        self._result = None
+        self._person = None
+        self.computation = None
 
     def __repr__(self):
         return "<Number: %s>" % self.code
 
     def __str__(self):
         return self.name
+
+    @property
+    def person(self):
+        return self._person
+
+    @person.setter
+    def person(self, value):
+        if not self._person and value:
+            self._person = value
+
+            if self.computation_method:
+                self.computation = import_module(
+                    COMPUTATION_METHODS_PATH + self.computation_method
+                ).Method(self._person)
+
+    @property
+    def value(self):
+        return self.computation.result if self.computation else None
+
+    @property
+    def example(self):
+        return self.computation.example if self.computation else None
+
+    @property
+    def template(self):
+        self.refresh_explanations()
+        return self._template
+
+    @property
+    def result(self):
+        self.refresh_explanations()
+        return self._result
+
+    def refresh_explanations(self, force=False):
+        if not self.computation:
+            return
+        if self.person and any((force,  self._template is None, self._result is None)):
+            self._result = self.results.filter(person=self.person, value=self.value).first()
+            self._template = self.templates.filter(value=self.value).first()
 
 
 class AbstractContentModel(models.Model):

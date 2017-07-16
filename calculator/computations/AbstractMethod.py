@@ -5,22 +5,20 @@ from calculator.config import CONVERSION, POWERS
 import datetime
 
 
+# TODO: use Person? Remove middle_name
 class AbstractMethod(object):
     """ AbstractMethod. Every other method should inherit from this one, implementing run()
 
-    :type first_name: str
-    :type middle_names: list
-    :type last_name: str
-    :type birth: datetime.date
-    :type gender: str
+    :type person: models.Person
     """
 
-    def __init__(self, first_name, middle_names, last_name, birth, gender):
-        self.first_name = first_name
-        self.middle_names = middle_names
-        self.last_name = last_name
-        self.birth = birth
-        self.gender = gender
+    def __init__(self, person):
+        self.person = person
+        self.first_name = person.first_name
+        self.middle_names = person.middle_names
+        self.last_name = person.last_name
+        self.birth = person.birth
+        self.gender = person.gender
         self.today = datetime.date.today()
 
         # Not computed yet variables

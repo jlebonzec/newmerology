@@ -6,18 +6,18 @@
     {# Mockup! #}
     <h2>
         <span class="last_name">
-            {{ person.last_name|upper }}
+            {{ object.last_name|upper }}
         </span>
 
         <span class="given_names">
-            {{ person.given_names|title }}
+            {{ object.given_names|title }}
         </span>
 
         <span class="birth">
-            {{ person.birth|date:"SHORT_DATE_FORMAT" }}
+            {{ object.birth|date:"SHORT_DATE_FORMAT" }}
         </span>
     </h2>
-    {% for number in person.numbers %}
+    {% for number in object.numbers %}
         <div class="number-wrapper card-panel purple darken-4 hoverable">
             <h3 class="number-name">
                 <label class="browser-default" for="example-{{ number.code }}">
@@ -54,11 +54,9 @@
                 </ul>
                 <p id="tab-{{ number.code }}-1">
                     {{ number.result.explanation }}<br>
-                    {% lorem 4 %}
                 </p>
                 <p id="tab-{{ number.code }}-2">
                     {{ number.template.explanation }}<br>
-                    {% lorem 5 %}
                 </p>
             </div>
         </div>

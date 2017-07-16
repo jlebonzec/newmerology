@@ -1,6 +1,8 @@
 """ Configuration file.
 """
 
+COMPUTATION_METHODS_PATH = "calculator.computations."
+
 GIVEN_NAMES_SEPARATOR = ' '
 
 # How to convert a letter into a number?

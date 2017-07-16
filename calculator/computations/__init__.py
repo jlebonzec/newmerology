@@ -1,1 +1,1 @@
-from .AbstractMethod import  AbstractMethod
+from .AbstractMethod import AbstractMethod

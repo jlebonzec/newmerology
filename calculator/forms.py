@@ -9,15 +9,6 @@ class PersonForm(forms.ModelForm):
         model = models.Person
         fields = ['given_names', 'last_name', 'birth']
 
-        # widgets = {
-        #     'given_names': forms.TextInput(
-        #         attrs={
-        #             'size': 80,
-        #             'help_text': 'All, separated by a space'
-        #         }
-        #     )
-        # }
-
         error_messages = {
             NON_FIELD_ERRORS: {
                 'unique_together': "%(model_name)s's %(field_labels)s are not unique."
@@ -28,3 +19,6 @@ class PersonForm(forms.ModelForm):
         Row('given_names', 'last_name'),
         Row('birth')
     )
+
+    def clean(self):
+        return self.cleaned_data

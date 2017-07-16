@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     # ex: /calculator/
     url(r'^$', views.calculation, name='home'),
-    # ex: /calculator/results
-    url(r'^results/$', views.results, name='results'),
+    # ex: /calculator/person
+    url(r'^person/(?P<pk>\d+)/$',
+        views.PersonDetailView.as_view(),
+        name='person')
 ]
