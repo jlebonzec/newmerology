@@ -147,7 +147,16 @@ class Number(models.Model):
             return
         if self.person and any((force,  self._template is None, self._result is None)):
             self._result = self.results.filter(person=self.person, value=self.value).first()
+            if self._result is None:
+                self._result = Result(number=self,
+                                      person=self.person,
+                                      value=self.value)
+                self._result.save()
+
             self._template = self.templates.filter(value=self.value).first()
+            if self._template is None:
+                self._template = Template(number=self, value=self.value)
+                self._template.save()
 
 
 class AbstractContentModel(models.Model):
@@ -175,7 +184,6 @@ class Template(AbstractContentModel):
 
     class Meta:
         unique_together = ('number', 'value')
-        index_together = ('number', 'value')
 
     def __repr__(self):
         return "<Template: [%s, %s]>" % (self.number.code, self.value)
@@ -200,7 +208,6 @@ class Result(AbstractContentModel):
 
     class Meta:
         unique_together = ('person', 'number', 'value', 'date')  # include date to keep history
-        index_together = ('person', 'number', 'value', 'date')  # include date to keep history
         ordering = ['person', 'number', 'value', '-date']
 
     def __repr__(self):
@@ -212,6 +219,6 @@ class Result(AbstractContentModel):
         if not self.date or self.__original_explanation is not self.explanation:
             # Actually update the record
             now = datetime.datetime.now()
+            self.date = now
             super(Result, self).save(*args, **kwargs)
             self.__original_explanation = self.explanation
-            self.date = now

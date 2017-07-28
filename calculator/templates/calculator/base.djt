@@ -57,6 +57,8 @@
                 max: 366, // Allow a year of prediction
                 buttonToday: ''
             });
+
+            $('.modal').modal();
         });
     </script>
     {% endblock %}

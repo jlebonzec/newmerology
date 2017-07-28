@@ -3,7 +3,7 @@
 {% load tranz %}
 {% block page_body %}
     {{ super }}
-    {# Mockup! #}
+
     <h2>
         <span class="last_name">
             {{ object.last_name|upper }}
@@ -17,6 +17,7 @@
             {{ object.birth|date:"SHORT_DATE_FORMAT" }}
         </span>
     </h2>
+
     {% for number in object.numbers %}
         <div class="number-wrapper card-panel purple darken-4 hoverable">
             <h3 class="number-name">
@@ -52,12 +53,67 @@
                         </a>
                     </li>
                 </ul>
-                <p id="tab-{{ number.code }}-1">
-                    {{ number.result.explanation }}<br>
+
+                <p id="tab-{{ number.code }}-1" class="editable"
+                  data-target="mod-res-{{ number.result.id }}">
+                    {{ number.result.explanation }}
                 </p>
-                <p id="tab-{{ number.code }}-2">
-                    {{ number.template.explanation }}<br>
+
+                <p id="tab-{{ number.code }}-2" class="editable"
+                   data-target="mod-tpl-{{ number.template.id }}">
+                    {{ number.template.explanation }}
                 </p>
+
+                {# TODO: Move this into a macro #}
+                <!-- Modal for result editing -->
+                <div id="mod-res-{{ number.result.id }}" class="modal">
+                    <div class="modal-content">
+                        <h4>{% tranz "results.explanation.edit_personal" %}</h4>
+
+                        <p contenteditable="true">
+                            {{ number.result.explanation }}
+                        </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect btn-flat">
+                            {% tranz "actions.ok" %}
+                        </a>
+
+                        <a href="#!" class="modal-action modal-close waves-effect btn-flat">
+                            {% tranz "actions.close" %}
+                        </a>
+
+                        <a href="#!" class="modal-action modal-close waves-effect btn-flat">
+                            {% tranz "actions.cancel" %}
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Modal for template editing -->
+                <div id="mod-tpl-{{ number.template.id }}" class="modal">
+                    <div class="modal-content">
+                        <h4>{% tranz "results.explanation.edit_general" %}</h4>
+
+                        <p contenteditable="true">
+                            {{ number.template.explanation }}
+                        </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect btn-flat">
+                            {% tranz "actions.ok" %}
+                        </a>
+
+                        <a href="#!" class="modal-action modal-close waves-effect btn-flat">
+                            {% tranz "actions.close" %}
+                        </a>
+
+                        <a href="#!" class="modal-action modal-close waves-effect btn-flat">
+                            {% tranz "actions.cancel" %}
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     {% endfor %}
