@@ -20,5 +20,26 @@ class PersonForm(forms.ModelForm):
         Row('birth')
     )
 
-    def clean(self):
-        return self.cleaned_data
+
+class TemplateForm(forms.ModelForm):
+    class Meta:
+        model = models.Template
+        fields = ['number', 'value', 'explanation']
+
+        error_messages = {
+            NON_FIELD_ERRORS: {
+                'unique_together': "%(model_name)s's %(field_labels)s are not unique."
+            }
+        }
+
+
+class ResultForm(forms.ModelForm):
+    class Meta:
+        model = models.Result
+        fields = ['person', 'number', 'value', 'explanation']
+
+        error_messages = {
+            NON_FIELD_ERRORS: {
+                'unique_together': "%(model_name)s's %(field_labels)s are not unique."
+            }
+        }

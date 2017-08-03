@@ -1,0 +1,129 @@
+{% extends 'calculator/base.djt' %}
+{% load i18n%}
+{% load tranz %}
+{% block page_body %}
+    {{ super }}
+
+    <h2>
+        <span class="last_name">
+            {{ object.last_name|upper }}
+        </span>
+
+        <span class="given_names">
+            {{ object.given_names|title }}
+        </span>
+
+        <span class="birth">
+            {{ object.birth|date:"SHORT_DATE_FORMAT" }}
+        </span>
+    </h2>
+
+    {% for number in object.numbers %}
+        <div class="number-wrapper card-panel purple darken-4 hoverable">
+            <h3 class="number-name">
+                <label class="browser-default" for="example-{{ number.code }}">
+                    {{ number.name }}
+                </label>
+
+                <span class="number-circle" >
+                    {{ number.value }}
+                </span>
+            </h3>
+
+            <input type="checkbox" id="example-{{ number.code }}" class="toggle-example"/>
+            <ul class="example-wrapper">
+                {% for detail in number.example %}
+                    <li class="example">{{ detail }}</li>
+                {% endfor %}
+            </ul>
+
+            <p class="number-description">{{ number.description }}</p>
+
+            <div class="explanations purple lighten-5">
+                <ul class="tabs tabs-fixed-width">
+                    <li class="tab">
+                        <a href="#tab-{{ number.code }}-1" class="{% if number.result.explanation %}active{% endif %}">
+                            {% tranz "results.explanation.personal" %}
+                        </a>
+                    </li>
+
+                    <li class="tab">
+                        <a href="#tab-{{ number.code }}-2" class="{% if not number.result.explanation %}active{% endif %}">
+                            {% tranz "results.explanation.general" %}
+                        </a>
+                    </li>
+                </ul>
+
+                <p id="tab-{{ number.code }}-1" class="editable"
+                  data-target="mod-res-{{ number.result.id }}">
+                    {{ number.result.explanation }}
+                </p>
+
+                <p id="tab-{{ number.code }}-2" class="editable"
+                   data-target="mod-tpl-{{ number.template.id }}">
+                    {{ number.template.explanation }}
+                </p>
+
+                {% url 'calc:update_result' number.template.id as route %}
+                {% include "calculator/modal_explanation.djt" with id=number.result.id prefix="mod-res-" route=route explanation=number.result.explanation %}
+
+                {% url 'calc:update_template' number.template.id as route %}
+                {% include "calculator/modal_explanation.djt" with id=number.template.id prefix="mod-tpl-" route=route explanation=number.template.explanation %}
+
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block javascript %}
+    {{ super }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.modal').modal();
+
+            // -- Edition bindings
+            $('.modal.js-edit').each(function () {
+                var self = $(this);
+                var id = self[0].id;
+                var targeter = $('[data-target=' + id + ']');
+                var btnSubmit = self.find('.js-submit');
+                var btnCancel = self.find('.js-cancel');
+                var form = self.find('form');
+                var csrf = form.find('[name=csrfmiddlewaretoken]')[0];
+                var explanation = form.find('[data-name=explanation]');
+
+                // Submit: POST and update page content
+                btnSubmit.on('click', function(event) {
+                    $.ajax({
+                        url: form.attr('action'),
+                        type: 'post',
+                        data: {
+                            csrfmiddlewaretoken: csrf.value,
+                            explanation: explanation.text()
+                        },
+                        success: function (payload) {
+                            console.log(payload);
+
+                            var updated = payload['data'];
+                            explanation.text(updated);
+                            targeter.text(updated);
+
+                            self.modal('close');
+                            // TODO: handle cancel
+                        },
+                        error: function (payload) {
+                            console.log(payload);
+                        }
+                    });
+                });
+
+                // Cancel: reset old value
+                btnCancel.on('click', function(event) {
+                    var original = targeter.text();
+                    explanation.text(original);
+                    self.modal('close');
+                });
+            });
+        });
+    </script>
+{% endblock %}

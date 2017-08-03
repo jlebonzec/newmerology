@@ -5,8 +5,9 @@ results:
   explanation:
     general: "General Explanation"
     personal: "Personal Explanation"
-    edit_general: "Edit the general explanation"
-    edit_personal: "Edit the personal explanation"
+    edit:
+      general: "Edit the general explanation"
+      personal: "Edit the personal explanation"
 
 actions:
   cancel: "Cancel"

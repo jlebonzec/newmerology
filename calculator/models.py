@@ -198,27 +198,10 @@ class Result(AbstractContentModel):
                              related_name='results', related_query_name='result')
     number = models.ForeignKey(Number, on_delete=models.CASCADE,
                                related_name='results', related_query_name='result')
-    date = models.DateTimeField(null=False, blank=False)  # This should never be directly edited
-
-    __original_explanation = None
-
-    def __init__(self, *args, **kwargs):
-        super(Result, self).__init__(*args, **kwargs)
-        self.__original_explanation = self.explanation
+    # TODO: Add date for history analysis
 
     class Meta:
-        unique_together = ('person', 'number', 'value', 'date')  # include date to keep history
-        ordering = ['person', 'number', 'value', '-date']
+        ordering = ['person', 'number', 'value']
 
     def __repr__(self):
         return "<Result: %s - [%s, %s]>" % (self.person, self.number.code, self.value)
-
-    def save(self, *args, **kwargs):
-        """ Override the save method to properly handle versions
-        """
-        if not self.date or self.__original_explanation is not self.explanation:
-            # Actually update the record
-            now = datetime.datetime.now()
-            self.date = now
-            super(Result, self).save(*args, **kwargs)
-            self.__original_explanation = self.explanation

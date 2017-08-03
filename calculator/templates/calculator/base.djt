@@ -20,12 +20,12 @@
 
     <script type="text/javascript" src="{% static 'js/jquery-3.2.1.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>
-    {# TODO: minify#}
-
 
     <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1" />
 </head>
+
 <body>
+
 <header class="purple darken-4 valign-wrapper">
     {% block page_header %}
         <h1 class="center-align white-text">
@@ -37,31 +37,18 @@
         </h1>
     {% endblock %}
 </header>
+
 <main class="page-wrapper container">
     {% block page_body %}
     {% endblock %}
 </main>
+
 <footer>
     {% block page_footer %}
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.datepicker').pickadate({
-{#                monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],#}
-{#                format: 'd mmmm yyyy',#}
-                formatSubmit: 'yyyy-mm-dd',
-                hiddenName: true,
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: 100, // Creates a dropdown of 15 years to control year
-                min: -36524, // Max 100 years old
-                max: 366, // Allow a year of prediction
-                buttonToday: ''
-            });
-
-            $('.modal').modal();
-        });
-    </script>
     {% endblock %}
 </footer>
+
+{% block javascript %}
+{% endblock %}
 </body>
 </html>

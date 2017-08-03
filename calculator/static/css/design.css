@@ -117,6 +117,16 @@ h2 {
 .result-wrapper {
   padding: 3px 10px; }
 
+.modal p[contenteditable] {
+  border: 1px solid lightgrey; }
+  .modal p[contenteditable]:focus {
+    outline: none;
+    box-shadow: inset 0 0 3px -2px black; }
+
+.modal .modal-footer button.btn {
+  margin-left: .1rem;
+  margin-right: .1rem; }
+
 @media (max-width: 1199px) {
   h2 .last_name, h2 .given_names, h2 .birth {
     display: block;

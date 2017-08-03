@@ -12,3 +12,22 @@
     </div>
 
 {% endblock %}
+
+{% block javascript %}
+    {{ super }}
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('.datepicker').pickadate({
+            {#                monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],#}
+            {#                format: 'd mmmm yyyy',#}
+            formatSubmit: 'yyyy-mm-dd',
+            hiddenName: true,
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 100, // Creates a dropdown of 15 years to control year
+            min: -36524, // Max 100 years old
+            max: 366, // Allow a year of prediction
+            buttonToday: ''
+        })
+    });
+    </script>
+{% endblock %}
