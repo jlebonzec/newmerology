@@ -54,12 +54,12 @@
                     </li>
                 </ul>
 
-                <p id="tab-{{ number.code }}-1" class="editable"
+                <p id="tab-{{ number.code }}-1" class="editable modal-trigger"
                   data-target="mod-res-{{ number.result.id }}">
                     {{ number.result.explanation }}
                 </p>
 
-                <p id="tab-{{ number.code }}-2" class="editable"
+                <p id="tab-{{ number.code }}-2" class="editable modal-trigger"
                    data-target="mod-tpl-{{ number.template.id }}">
                     {{ number.template.explanation }}
                 </p>
@@ -109,7 +109,6 @@
                             targeter.text(updated);
 
                             self.modal('close');
-                            // TODO: handle cancel
                         },
                         error: function (payload) {
                             console.log(payload);
