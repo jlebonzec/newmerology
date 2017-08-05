@@ -5,3 +5,11 @@ results:
   explanation:
     general: "Explication Générale"
     personal: "Explication Personnelle"
+    edit:
+      general: "Modifier l'explication générale"
+      personal: "Modifier l'explication personnelle"
+
+actions:
+  cancel: "Annuler"
+  ok: "Valider"
+  close: "Fermer"
