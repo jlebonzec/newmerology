@@ -37,13 +37,13 @@ form {
   }
 
   /* label focus color */
-    .input-field input[type=text]:focus + label {
-    color: $card-color;
+  .input-field input[type=text]:focus + label {
+    color: $card-color !important;
   }
   /* label underline focus color */
   .input-field input[type=text]:focus {
-    border-bottom: 1px solid $card-color;
-    box-shadow: 0 1px 0 0 $card-color;
+    border-bottom: 1px solid $card-color !important;
+    box-shadow: 0 1px 0 0 $card-color !important;
   }
 
   select:focus {
@@ -217,4 +217,12 @@ h2 {
       text-align: center;
     }
   }
+}
+
+// -- HACKs
+.picker__header select {
+  position: inherit;
+  height: 2em;
+  opacity: inherit;
+  pointer-events: auto;
 }

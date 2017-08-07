@@ -24,10 +24,10 @@ form {
     color: rgba(0, 0, 0, 0.6);
     font-size: 75%; }
   form .input-field input[type=text]:focus + label {
-    color: #4a148c; }
+    color: #4a148c !important; }
   form .input-field input[type=text]:focus {
-    border-bottom: 1px solid #4a148c;
-    box-shadow: 0 1px 0 0 #4a148c; }
+    border-bottom: 1px solid #4a148c !important;
+    box-shadow: 0 1px 0 0 #4a148c !important; }
   form select:focus {
     outline: #f3e5f5; }
   form .picker__day--selected,
@@ -131,5 +131,11 @@ h2 {
   h2 .last_name, h2 .given_names, h2 .birth {
     display: block;
     text-align: center; } }
+
+.picker__header select {
+  position: inherit;
+  height: 2em;
+  opacity: inherit;
+  pointer-events: auto; }
 
 /*# sourceMappingURL=../../../../../../../../static/css/design.css.map */

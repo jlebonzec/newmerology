@@ -22,7 +22,7 @@ def calculation(request):
         inst = person_form.instance
 
         # Get or create from DB
-        person = models.Person.objects.all().get_or_create(
+        person, created = models.Person.objects.all().get_or_create(
             given_names=inst.given_names,
             last_name=inst.last_name,
             birth=inst.birth
