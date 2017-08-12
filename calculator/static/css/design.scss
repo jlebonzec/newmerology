@@ -179,8 +179,62 @@ h2 {
       background: $card-color;
     }
 
-    p {
+
+    .editable {
       padding: .5rem;
+
+      .raw {
+        display: none;
+      }
+    }
+
+    .explanation {
+
+      h1, h2, h3, h4, h5, h6 {
+        text-align: start;
+      }
+
+      h1 {
+        font-size: 3.1rem;
+        margin: 1.55rem 0 1.25rem 0;
+      }
+
+      h2 {
+        font-size: 2.68rem;
+        margin: 1.34rem 0 1.08rem 0;
+      }
+
+      h3 {
+        font-size: 2.26rem;
+        margin: 1.13rem 0 0.91rem 0;
+      }
+
+      h4 {
+        font-size: 1.84rem;
+        margin: 0.92rem 0 0.74rem 0;
+      }
+
+      h5 {
+        font-size: 1.42rem;
+        margin: 0.71rem 0 0.57rem 0;
+      }
+
+      h6 {
+        font-size: 1.0rem;
+        margin: 0.5rem 0 0.4rem 0;
+      }
+
+      ul, ol {
+        padding-left: 2.26rem;
+      }
+
+      ul, ul > li {
+        list-style-type: disc;
+      }
+
+      ol, ol > li {
+        list-style-type: decimal;
+      }
     }
   }
 }
@@ -191,8 +245,10 @@ h2 {
 
 // -- Modal
 .modal {
-  p[contenteditable] {
+  textarea {
     border: 1px solid lightgrey;
+    resize: vertical;
+    min-height: 30vh;
 
     &:focus {
       outline: none;

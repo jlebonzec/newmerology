@@ -3,14 +3,14 @@
 <!-- Modal for template editing -->
 <div id="{{ prefix }}{{ id }}" class="modal modal-fixed-footer js-edit">
     <div class="modal-content">
-        <h4>{% tranz "results.explanation.edit.general" %}</h4>
+        <h4>{% tranz title %}</h4>
 
         <form method="post" action="{{ route }}">
             {% csrf_token %}
 
-            <p contenteditable="true" data-name="explanation">
-                {{ explanation }}
-            </p>
+            <textarea data-name="explanation-md">
+                {{ object.explanation_md }}
+            </textarea>
         </form>
     </div>
 

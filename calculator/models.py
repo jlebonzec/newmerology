@@ -1,6 +1,6 @@
 from django.db import models
 
-import datetime
+from calculator.utils import markdownify
 from importlib import import_module
 
 from calculator.config import COMPUTATION_METHODS_PATH, GIVEN_NAMES_SEPARATOR
@@ -167,13 +167,17 @@ class AbstractContentModel(models.Model):
         explanation = "That's a great result!"
     """
     value = models.SmallIntegerField(null=False)
-    explanation = models.TextField(default='', null=False, blank=True)
+    explanation_md = models.TextField(default='', null=False, blank=True)
 
     class Meta:
         abstract = True
 
     def __str__(self):
-        return self.explanation
+        return self.explanation_md
+
+    @property
+    def explanation(self):
+        return markdownify(self.explanation_md)
 
 
 class Template(AbstractContentModel):

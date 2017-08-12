@@ -2,6 +2,7 @@
 {% load i18n%}
 {% load tranz %}
 {% block page_body %}
+    {# TODO: FIX XSS #}
     {{ super }}
 
     <h2>
@@ -54,21 +55,23 @@
                     </li>
                 </ul>
 
-                <p id="tab-{{ number.code }}-1" class="editable modal-trigger"
+                <div id="tab-{{ number.code }}-1" class="explanation editable modal-trigger"
                   data-target="mod-res-{{ number.result.id }}">
-                    {{ number.result.explanation }}
-                </p>
+                    <div class="formatted">{{ number.result.explanation|safe }}</div>
+                    <div class="raw">{{ number.result.explanation_md }}</div>
+                </div>
 
-                <p id="tab-{{ number.code }}-2" class="editable modal-trigger"
+                <div id="tab-{{ number.code }}-2" class="explanation editable modal-trigger"
                    data-target="mod-tpl-{{ number.template.id }}">
-                    {{ number.template.explanation }}
-                </p>
+                    <div class="formatted">{{ number.template.explanation|safe }}</div>
+                    <div class="raw">{{ number.template.explanation_md }}</div>
+                </div>
 
-                {% url 'calc:update_result' number.template.id as route %}
-                {% include "calculator/modal_explanation.djt" with id=number.result.id prefix="mod-res-" route=route explanation=number.result.explanation %}
+                {% url 'calc:update_result' number.result.id as route %}
+                {% include "calculator/modal_explanation.djt" with id=number.result.id prefix="mod-res-" route=route object=number.result title="results.explanation.edit.personal" %}
 
                 {% url 'calc:update_template' number.template.id as route %}
-                {% include "calculator/modal_explanation.djt" with id=number.template.id prefix="mod-tpl-" route=route explanation=number.template.explanation %}
+                {% include "calculator/modal_explanation.djt" with id=number.template.id prefix="mod-tpl-" route=route object=number.template title="results.explanation.edit.general" %}
 
             </div>
         </div>
@@ -86,11 +89,13 @@
                 var self = $(this);
                 var id = self[0].id;
                 var targeter = $('[data-target=' + id + ']');
+                var targeter_raw = targeter.find('.raw');
+                var targeter_html = targeter.find('.formatted');
                 var btnSubmit = self.find('.js-submit');
                 var btnCancel = self.find('.js-cancel');
                 var form = self.find('form');
-                var csrf = form.find('[name=csrfmiddlewaretoken]')[0];
-                var explanation = form.find('[data-name=explanation]');
+                var csrf = form.find('[name=csrfmiddlewaretoken]');
+                var explanation_md = form.find('[data-name=explanation-md]');
 
                 // Submit: POST and update page content
                 btnSubmit.on('click', function(event) {
@@ -98,15 +103,14 @@
                         url: form.attr('action'),
                         type: 'post',
                         data: {
-                            csrfmiddlewaretoken: csrf.value,
-                            explanation: explanation.text()
+                            csrfmiddlewaretoken: csrf.val(),
+                            explanation: explanation_md.val()
                         },
                         success: function (payload) {
-                            console.log(payload);
-
-                            var updated = payload['data'];
-                            explanation.text(updated);
-                            targeter.text(updated);
+                            var data = payload['data'];
+                            explanation_md.val(data['markdown']);
+                            targeter_raw.text(data['markdown']);
+                            targeter_html.html(data['html']);
 
                             self.modal('close');
                         },
@@ -118,8 +122,8 @@
 
                 // Cancel: reset old value
                 btnCancel.on('click', function(event) {
-                    var original = targeter.text();
-                    explanation.text(original);
+                    var original = targeter_raw.text();
+                    explanation_md.val(original);
                     self.modal('close');
                 });
             });

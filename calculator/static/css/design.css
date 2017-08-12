@@ -111,15 +111,45 @@ h2 {
       color: #7b1fa2; }
   .number-wrapper .explanations .indicator {
     background: #4a148c; }
-  .number-wrapper .explanations p {
+  .number-wrapper .explanations .editable {
     padding: .5rem; }
+    .number-wrapper .explanations .editable .raw {
+      display: none; }
+  .number-wrapper .explanations .explanation h1, .number-wrapper .explanations .explanation h2, .number-wrapper .explanations .explanation h3, .number-wrapper .explanations .explanation h4, .number-wrapper .explanations .explanation h5, .number-wrapper .explanations .explanation h6 {
+    text-align: start; }
+  .number-wrapper .explanations .explanation h1 {
+    font-size: 3.1rem;
+    margin: 1.55rem 0 1.25rem 0; }
+  .number-wrapper .explanations .explanation h2 {
+    font-size: 2.68rem;
+    margin: 1.34rem 0 1.08rem 0; }
+  .number-wrapper .explanations .explanation h3 {
+    font-size: 2.26rem;
+    margin: 1.13rem 0 0.91rem 0; }
+  .number-wrapper .explanations .explanation h4 {
+    font-size: 1.84rem;
+    margin: 0.92rem 0 0.74rem 0; }
+  .number-wrapper .explanations .explanation h5 {
+    font-size: 1.42rem;
+    margin: 0.71rem 0 0.57rem 0; }
+  .number-wrapper .explanations .explanation h6 {
+    font-size: 1.0rem;
+    margin: 0.5rem 0 0.4rem 0; }
+  .number-wrapper .explanations .explanation ul, .number-wrapper .explanations .explanation ol {
+    padding-left: 2.26rem; }
+  .number-wrapper .explanations .explanation ul, .number-wrapper .explanations .explanation ul > li {
+    list-style-type: disc; }
+  .number-wrapper .explanations .explanation ol, .number-wrapper .explanations .explanation ol > li {
+    list-style-type: decimal; }
 
 .result-wrapper {
   padding: 3px 10px; }
 
-.modal p[contenteditable] {
-  border: 1px solid lightgrey; }
-  .modal p[contenteditable]:focus {
+.modal textarea {
+  border: 1px solid lightgrey;
+  resize: vertical;
+  min-height: 30vh; }
+  .modal textarea:focus {
     outline: none;
     box-shadow: inset 0 0 3px -2px black; }
 

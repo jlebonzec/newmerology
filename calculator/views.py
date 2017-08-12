@@ -2,7 +2,9 @@ import json
 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, reverse
+from django.utils.html import escape
 from django.views.generic.detail import DetailView
+from html import unescape
 
 from . import forms
 from . import models
@@ -42,14 +44,19 @@ class PersonDetailView(DetailView):
 # -- User hidden views (XHR)
 def update_content_model(request, pk, model):
     if request.POST:
-        explanation = request.POST.get('explanation')
-        if explanation is not None:
-            explanation = explanation.strip()
-            model.objects.all().filter(pk=pk).update(explanation=explanation)
+        explanation_md = request.POST.get('explanation')
+        if explanation_md is not None:
+            explanation_md = escape(unescape(explanation_md.strip()))
+            instance = model.objects.all().filter(pk=pk).first()
+            instance.explanation_md = explanation_md
+            instance.save()
 
             resp = {
                 'status': 'success',
-                'data': explanation
+                'data': {
+                    'markdown': instance.explanation_md,
+                    'html': instance.explanation
+                }
             }
             return HttpResponse(json.dumps(resp),
                                 content_type="application/json",

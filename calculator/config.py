@@ -37,3 +37,6 @@ CONVERSION = {
 
 # Numbers considered as power (should be kept as is)
 POWERS = (11, 22, 33)
+
+# List of Markdown extensions to enable
+MARKDOWN_EXTENSIONS = ['markdown.extensions.extra', 'markdown.extensions.sane_lists']
