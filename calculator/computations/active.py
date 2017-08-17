@@ -9,7 +9,7 @@ from calculator.computations import utils
 class Computation(utils.AbstractComputation):
 
     def run(self):
-        digits = utils.string_to_digits(self.given_names)
+        digits = utils.digitize(self.given_names)
 
         self._result = utils.simplify(digits)
-        self._example = utils.conversion_to_example(self.last_name, digits, self._result)
+        self._example = utils.examplify(self.given_names, digits, self._result)

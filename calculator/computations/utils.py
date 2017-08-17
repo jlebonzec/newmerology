@@ -60,33 +60,32 @@ class AbstractComputation(object):
 
 
 # -- Other utility methods
-def conversion_to_example(strings, numbers, result):
+def examplify(string, numbers, result, symbol="→"):
     """ Generate an example from a string-to-number conversion
     
-    :param strings: the strings converted into numbers
-    :type strings: list or str
+    :param string: the string converted into numbers
+    :type string: str
     
-    :param numbers: the numbers obtained from the strings
-    :type numbers: list or str
+    :param numbers: the numbers obtained from the string
+    :type numbers: str
     
     :param result: the result obtained after simplification
     :type result: int
     
+    :param symbol: the symbol to use as link between numbers and result
+    :type symbol: str
+    
     :return: a list of examples
     :rtype: list of str
     """
-    if not isinstance(strings, (list, tuple, set)):
-        strings = [strings]
-    if not isinstance(numbers, (list, tuple, set)):
-        numbers = [numbers]
 
     return [
-        ' '.join(strings),
-        ' '.join(numbers) + " → " + str(result)
+        string.upper(),
+        "%s %s %s" % (numbers, symbol, result)
     ]
 
 
-def string_to_digits(s):
+def digitize(s):
     """ Convert a character string into a digit strings.
 
     Uses the conversion dictionary from the config.
@@ -99,10 +98,20 @@ def string_to_digits(s):
     """
     digits = ""
     for char in s:
+        d = "_"
+
         try:
-            digits += str(CONVERSION[char])
+            d = str(int(char))  # Already a number
+        except ValueError:
+            pass
+
+        try:
+            d = str(CONVERSION[char.lower()])  # In the table?
         except KeyError:
-            digits += '_'
+            pass
+
+        digits += d
+
     return digits
 
 
@@ -124,9 +133,17 @@ def simplify(number, keep_power=True):
                 continue
         return res
 
+    # Is it already a number?
+    try:
+        number = int(number)
+    except ValueError:
+        # If length is already good, return; else ignore.
+        if len(str(number)) <= 1:
+            return 0
+
     while len(str(number)) > 1:
         if keep_power and number in POWERS:
             break
         number = add_digits(number)
 
-    return int(number)
+    return number

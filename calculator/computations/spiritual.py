@@ -13,8 +13,8 @@ class Computation(utils.AbstractComputation):
     re_consonants = re.compile(r'[bcdfghjklmnpqrstvwxz]', re.IGNORECASE)
 
     def run(self):
-        vowels = self.re_consonants.sub(self.full_name, '_')
-        digits = utils.string_to_digits(vowels)
+        vowels = re.sub(self.re_consonants, '_', self.full_name)
+        digits = utils.digitize(vowels)
 
         self._result = utils.simplify(digits)
-        self._example = utils.conversion_to_example(vowels, digits, self._result)
+        self._example = utils.examplify(vowels, digits, self._result)

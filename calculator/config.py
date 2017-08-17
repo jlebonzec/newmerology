@@ -33,6 +33,8 @@ CONVERSION = {
     'x': 6,
     'y': 7,
     'z': 8,
+    ' ': ' ',
+    '-': ' ',
 }
 
 # Numbers considered as power (should be kept as is)
