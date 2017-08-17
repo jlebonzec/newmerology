@@ -1,26 +1,26 @@
-""" LifePath patter number.
+""" LifePath pattern number.
 
 It consists in the sum of the birth numbers
 """
 
-from calculator.computations import AbstractMethod
+from calculator.computations import utils
 from calculator.config import POWERS
 
 
-class Method(AbstractMethod):
+class Computation(utils.AbstractComputation):
 
     def run(self):
         year, month, day = self.birth.year, self.birth.month, self.birth.day
-        num = self.simplify(year + month + day)
+        num = utils.simplify(year + month + day)
         if num in POWERS:
             # Stop here, we found a power number
             self._result = num
         else:
             # Try another way to find the power number
-            self._result = self.simplify(
-                self.simplify(year, keep_power=False) +
-                self.simplify(month, keep_power=False) +
-                self.simplify(day, keep_power=False)
+            self._result = utils.simplify(
+                utils.simplify(year, keep_power=False) +
+                utils.simplify(month, keep_power=False) +
+                utils.simplify(day, keep_power=False)
             )
         self._result = int(self._result)
 

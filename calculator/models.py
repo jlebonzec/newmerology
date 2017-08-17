@@ -47,6 +47,10 @@ class Person(models.Model):
         return [n.title() for n in self.given_names.split(GIVEN_NAMES_SEPARATOR)[1:]]
 
     @property
+    def full_name(self):
+        return " ".join((self.last_name, self.given_names))
+
+    @property
     def numbers(self):
         if self._numbers is None:
             self.refresh_numbers()
