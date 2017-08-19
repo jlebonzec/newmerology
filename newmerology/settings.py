@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+from python_translate import loaders
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -135,7 +137,6 @@ if DEBUG:
     from python_translate.translations import DebugTranslator
     TRANZ_TRANSLATOR_CLASS = DebugTranslator
 
-from python_translate import loaders
 TRANZ_LOADERS = {
     "po": loaders.PoFileLoader(),
     "yml": loaders.YamlFileLoader()

@@ -62,19 +62,19 @@ class AbstractComputation(object):
 # -- Other utility methods
 def examplify(string, numbers, result, symbol="→"):
     """ Generate an example from a string-to-number conversion
-    
+
     :param string: the string converted into numbers
     :type string: str
-    
+
     :param numbers: the numbers obtained from the string
     :type numbers: str
-    
+
     :param result: the result obtained after simplification
     :type result: int
-    
+
     :param symbol: the symbol to use as link between numbers and result
     :type symbol: str
-    
+
     :return: a list of examples
     :rtype: list of str
     """

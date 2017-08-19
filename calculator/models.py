@@ -29,7 +29,8 @@ class Person(models.Model):
         (FEMALE, 'Female'),
         (OTHER, 'Other'),
     )
-    given_names = models.CharField(max_length=80, null=False, blank=False, help_text="All, space-separated")
+    given_names = models.CharField(max_length=80, null=False, blank=False,
+                                   help_text="All, space-separated")
     last_name = models.CharField(max_length=50, null=False, blank=False)
     birth = models.DateField(null=False, blank=False, help_text="YYYY-MM-DD")
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=False, blank=False)
@@ -149,7 +150,7 @@ class Number(models.Model):
     def refresh_explanations(self, force=False):
         if not self.computation:
             return
-        if self.person and any((force,  self._template is None, self._result is None)):
+        if self.person and any((force, self._template is None, self._result is None)):
             self._result = self.results.filter(person=self.person, value=self.value).first()
             if self._result is None:
                 self._result = Result(number=self,
@@ -203,7 +204,7 @@ class Result(AbstractContentModel):
     It's linked to a person, and is versioned through dates
     """
     person = models.ForeignKey(Person, on_delete=models.CASCADE,
-                             related_name='results', related_query_name='result')
+                               related_name='results', related_query_name='result')
     number = models.ForeignKey(Number, on_delete=models.CASCADE,
                                related_name='results', related_query_name='result')
     # TODO: Add date for history analysis

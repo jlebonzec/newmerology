@@ -14,8 +14,8 @@ from . import models
 
 def calculation(request):
     """ Propose a form to realize an analysis of someone.
-    
-    If the form is valid, the person is saved to DB and their numbers are 
+
+    If the form is valid, the person is saved to DB and their numbers are
     computed.
     """
     person_form = forms.PersonForm(request.POST or None)
