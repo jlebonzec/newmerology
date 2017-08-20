@@ -70,7 +70,7 @@ class Person(models.Model):
         return "%s %s" % (self.first_name.title(), self.last_name.upper())
 
     def refresh_numbers(self):
-        computations = Number.objects.all()
+        computations = Number.objects.filter(position__gte=0)
         for comp in computations:
             comp.person = self
         self._numbers = computations
@@ -93,7 +93,7 @@ class Number(models.Model):
     code = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=120, null=False, blank=False)
     description = models.TextField(default='', null=False, blank=True)
-    position = models.SmallIntegerField(default=0)
+    position = models.SmallIntegerField(default=0)  # -1 means disabled
     computation_method = models.CharField(max_length=80, null=True)
 
     # TODO: Create methods to handle position while inserting or swapping
