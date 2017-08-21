@@ -127,7 +127,7 @@ class Number(models.Model):
             if self.computation_method:
                 self.computation = import_module(
                     COMPUTATION_METHODS_PATH + self.computation_method
-                ).Method(self._person)
+                ).Computation(self._person)
 
     @property
     def value(self):
