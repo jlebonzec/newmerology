@@ -130,14 +130,6 @@ class Number(models.Model):
                 ).Computation(self._person)
 
     @property
-    def value(self):
-        return self.computation.result if self.computation else None
-
-    @property
-    def example(self):
-        return self.computation.example if self.computation else None
-
-    @property
     def template(self):
         self.refresh_explanations()
         return self._template
@@ -148,19 +140,24 @@ class Number(models.Model):
         return self._result
 
     def refresh_explanations(self, force=False):
+        """ Refresh the explanation. Will only work if self.computations and self.person are set.
+        
+        :param force: If we should force the refresh of the explanations (even if already computed)
+        :type force: bool
+        """
         if not self.computation:
             return
         if self.person and any((force, self._template is None, self._result is None)):
-            self._result = self.results.filter(person=self.person, value=self.value).first()
+            self._result = self.results.filter(person=self.person, value=self.computation.value).first()
             if self._result is None:
                 self._result = Result(number=self,
                                       person=self.person,
-                                      value=self.value)
+                                      value=self.computation.value)
                 self._result.save()
 
-            self._template = self.templates.filter(value=self.value).first()
+            self._template = self.templates.filter(value=self.computation.value).first()
             if self._template is None:
-                self._template = Template(number=self, value=self.value)
+                self._template = Template(number=self, value=self.computation.value)
                 self._template.save()
 
 

@@ -27,13 +27,13 @@
                 </label>
 
                 <span class="number-circle" >
-                    {{ number.value }}
+                    {{ number.computation.value }}
                 </span>
             </h3>
 
             <input type="checkbox" id="example-{{ number.code }}" class="toggle-example"/>
             <ul class="example-wrapper">
-                {% for detail in number.example %}
+                {% for detail in number.computation.example %}
                     <li class="example">{{ detail }}</li>
                 {% endfor %}
             </ul>
