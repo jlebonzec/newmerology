@@ -8,7 +8,7 @@ from calculator.computations import utils
 import re
 
 
-class Computation(utils.AbstractComputation):
+class Computation(utils.AbstractBaseComputation):
 
     re_consonants = re.compile(r'[bcdfghjklmnpqrstvwxz]', re.IGNORECASE)
 

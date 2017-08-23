@@ -126,25 +126,48 @@ class TestExamplify(TestCase):
         self.assertEqual(expected, utils.examplify(string, numbers, res, "gives"))
 
 
-class TestAbstractComputation(TestCase):
-    """ Test the AbstractComputation class """
+class TestAbstractBaseComputation(TestCase):
+    """ Test the AbstractBaseComputation class """
 
     @classmethod
     def setUpClass(cls):
         """ Set up attributes used several times """
-        super(TestAbstractComputation, cls).setUpClass()
+        super(TestAbstractBaseComputation, cls).setUpClass()
         cls.today = date.today()
         cls.person = Person(given_names="John", last_name="Doe", birth=cls.today)
-        cls.clazz = utils.AbstractComputation(cls.person)
+        cls.clazz = utils.AbstractBaseComputation(cls.person)
 
-    def test_abstract_computation_attributes_are_set(self):
+    def test_abstract_base_computation_attributes_are_set(self):
         """ The abstract class should get the person parameters """
         self.assertEqual(self.person.given_names, self.clazz.given_names)
         self.assertEqual(self.person.last_name, self.clazz.last_name)
         self.assertEqual(self.person.birth, self.clazz.birth)
         self.assertEqual(self.person.gender, self.clazz.gender)
 
-    def test_abstract_computation_run_is_not_implemented(self):
+    def test_abstract_base_computation_run_is_not_implemented(self):
         """ This abstract class should not implement the run method """
         with self.assertRaises(NotImplementedError):
+            self.clazz.run()
+
+
+class TestAbstractGridComputation(TestCase):
+    """ Test the AbstractGridComputation class """
+
+    @classmethod
+    def setUpClass(cls):
+        """ Set up attributes used several times """
+        super(TestAbstractGridComputation, cls).setUpClass()
+        cls.today = date.today()
+        cls.person = Person(given_names="John", last_name="Doe", birth=cls.today)
+        cls.clazz = utils.AbstractGridComputation(cls.person)
+
+    def test_abstract_grid_computation_generates_correct_grid(self):
+        """ The grid generated should be correct """
+        expected_counts = [1, 0, 0, 1, 2, 2, 0, 1, 0]
+        for i, cell in self.clazz.grid.items():
+            self.assertEqual(expected_counts[i-1], cell['count'])
+
+    def test_abstract_grid_computation_run_is_not_directly_possible(self):
+        """ It should not be possible to directly run this abstract class """
+        with self.assertRaises(ValueError):
             self.clazz.run()

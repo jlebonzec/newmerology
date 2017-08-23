@@ -7,7 +7,7 @@ from calculator.computations import utils
 from calculator.config import POWERS
 
 
-class Computation(utils.AbstractComputation):
+class Computation(utils.AbstractBaseComputation):
 
     def run(self):
         year, month, day = self.birth.year, self.birth.month, self.birth.day

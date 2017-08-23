@@ -2,14 +2,15 @@
 
 Also contains various utility methods used for computations.
 """
-from calculator.config import CONVERSION, POWERS
-
+import re
 import datetime
+
+from calculator.config import CONVERSION, POWERS
 
 
 # TODO: use Person? Remove middle_name
-class AbstractComputation(object):
-    """ AbstractComputation. Every other method should inherit from this one, implementing run()
+class AbstractBaseComputation(object):
+    """ AbstractBaseComputation. Every other method should inherit from this one, implementing run()
 
     :type person: models.Person
     """
@@ -56,6 +57,53 @@ class AbstractComputation(object):
 
         This is the core method that needs to be implemented by sub-methods.
         """
+        raise NotImplementedError()
+
+
+class AbstractGridComputation(AbstractBaseComputation):
+    """ AbstractGridComputation represents the computation of a cell in the grid.
+    
+    Because of how the display of the grid work, we have to compute the grid for every cell.
+    Despite this operation being pretty fast (9 cells maximum), caching it avoids unnecessary work.
+    
+    :type person: models.Person
+    """
+
+    def __init__(self, person):
+        super(AbstractGridComputation, self).__init__(person)
+        self._grid = None
+        self.cell_id = None
+
+    # TODO: store grid in cache
+    @property
+    def grid(self):
+        """ Generate the grid if needed and return it """
+        if not self._grid:
+            self._grid = {}
+            digits = digitize(self.full_name)
+
+            for i in range(1, 10):
+                count, explanation = count_occurrences(digits, i, explain=True)
+                example = examplify(self.full_name, explanation, count)
+
+                self._grid[i] = {
+                    'count': count,
+                    'example': example,
+                }
+
+        return self._grid
+
+    def run(self):
+        if self.cell_id is None:
+            raise ValueError("Set a cell_id to compute the results")
+
+        self._result = self.grid[self.cell_id]['count']
+        self._example = self.grid[self.cell_id]['example']
+
+
+class AbstractTimeComputation(AbstractBaseComputation):
+
+    def run(self):
         raise NotImplementedError()
 
 
@@ -147,3 +195,31 @@ def simplify(number, keep_power=True):
         number = add_digits(number)
 
     return number
+
+
+def count_occurrences(digitized, c, explain=False):
+    """ Applies a mask so only characters matching will be kept 
+    
+    :param digitized: the digitized string
+    :type digitized: str
+    
+    :param c: the single character to keep occurrences of
+    :type c: int or str
+    
+    :param explain: if the explanation should be returned as well.
+        In such a case, the return value is a tuple (value, explanation)
+    :type explain: bool
+    
+    :return: the count, or the count and the explanation if the latter is wanted too
+    :rtype: str or tuple of str
+    """
+    c = str(c)
+    count = digitized.count(c)
+
+    if explain:
+        pattern = '[^' + c + ']'
+        re_digit = re.compile(pattern, re.IGNORECASE)
+        matching = re.sub(re_digit, '_', digitized)
+        return count, matching
+
+    return count

@@ -8,7 +8,7 @@ from calculator.computations import utils
 import re
 
 
-class Computation(utils.AbstractComputation):
+class Computation(utils.AbstractBaseComputation):
 
     re_vowels = re.compile(r'[aeiouy]', re.IGNORECASE)
 

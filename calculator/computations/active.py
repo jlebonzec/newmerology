@@ -6,7 +6,7 @@ It consists in the mapped sum of the given names
 from calculator.computations import utils
 
 
-class Computation(utils.AbstractComputation):
+class Computation(utils.AbstractBaseComputation):
 
     def run(self):
         digits = utils.digitize(self.given_names)
