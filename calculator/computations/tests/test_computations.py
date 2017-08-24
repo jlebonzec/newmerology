@@ -30,11 +30,12 @@ class AbstractTestMethod(TestCase):
 
     def __init__(self, *args, **kwargs):
         super(AbstractTestMethod, self).__init__(*args, **kwargs)
+        self.person_pk = "test_computations"
         self.person = Person(
             given_names="John Maximilien",
             last_name="Doe-Smith",
             birth=date(1984, 11, 21),
-            pk="test_computations"
+            pk=self.person_pk
         )
         self.method = self.computation_class(self.person)
 

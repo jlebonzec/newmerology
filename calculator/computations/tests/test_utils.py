@@ -126,6 +126,23 @@ class TestExamplify(TestCase):
         self.assertEqual(expected, utils.examplify(string, numbers, res, "gives"))
 
 
+class TestCountOccurrences(TestCase):
+    """ Test the counting of occurrences of a certain digit in a string """
+
+    def test_count_occurrences_without_explanation(self):
+        """ The method should return a single int """
+        digits = "1223334444555566666777777788888888999999999"
+        self.assertEqual(4, utils.count_occurrences(digits, 4, explain=False))
+
+    def test_count_occurrences_with_explanation(self):
+        """ Explanation should be given if asked for """
+        digits = "1223334444555566666777777788888888999999999"
+        res = utils.count_occurrences(digits, 7, explain=True)
+        self.assertTrue(isinstance(res, (tuple, list, set)))
+        self.assertEqual(7, res[0])
+        self.assertEqual("___________________7777777_________________", res[1])
+
+
 class TestAbstractBaseComputation(TestCase):
     """ Test the AbstractBaseComputation class """
 
@@ -134,7 +151,8 @@ class TestAbstractBaseComputation(TestCase):
         """ Set up attributes used several times """
         super(TestAbstractBaseComputation, cls).setUpClass()
         cls.today = date.today()
-        cls.person = Person(given_names="John", last_name="Doe", birth=cls.today, pk="test_examplify")
+        cls.person_pk = "test_examplify"
+        cls.person = Person(given_names="John", last_name="Doe", birth=cls.today, pk=cls.person_pk)
         cls.clazz = utils.AbstractBaseComputation(cls.person)
 
     def test_abstract_base_computation_attributes_are_set(self):
@@ -158,7 +176,13 @@ class TestAbstractGridComputation(TestCase):
         """ Set up attributes used several times """
         super(TestAbstractGridComputation, cls).setUpClass()
         cls.today = date.today()
-        cls.person = Person(given_names="John", last_name="Doe", birth=cls.today, pk="test_abstract_grid")
+        cls.person_pk = "test_abstract_grid"
+        cls.person = Person(
+            given_names="John",
+            last_name="Doe",
+            birth=cls.today,
+            pk=cls.person_pk
+        )
         cls.clazz = utils.AbstractGridComputation(cls.person)
 
     def test_abstract_grid_computation_generates_correct_grid(self):
@@ -167,7 +191,43 @@ class TestAbstractGridComputation(TestCase):
         for i, cell in self.clazz.grid.items():
             self.assertEqual(expected_counts[i-1], cell['count'])
 
+    def test_abstract_grid_computation_uses_cache(self):
+        """ Using the same pk for Person but different values
+        should return same (but wrong) result
+        """
+        person = Person(
+            given_names="Cirilla Fiona Ellen",
+            last_name="Riannon",
+            birth=self.today,
+            pk=self.person_pk
+        )  # Results will obviously differ from John Doe
+        expected = utils.AbstractGridComputation(person)
+        self.assertDictEqual(expected.grid, self.clazz.grid)
+
     def test_abstract_grid_computation_run_is_not_directly_possible(self):
         """ It should not be possible to directly run this abstract class """
         with self.assertRaises(ValueError):
+            self.clazz.run()
+
+
+class TestAbstractTimeComputation(TestCase):
+    """ Test the AbstractTimeComputation class """
+
+    @classmethod
+    def setUpClass(cls):
+        """ Set up attributes used several times """
+        super(TestAbstractTimeComputation, cls).setUpClass()
+        cls.today = date.today
+        cls.person_pk = "test_abstract_time"
+        cls.person = Person(
+            given_names="John",
+            last_name="Doe",
+            birth=cls.today,
+            pk=cls.person_pk
+        )
+        cls.clazz = utils.AbstractTimeComputation(cls.person)
+
+    def test_abstract_time_computation_run_is_not_implemented(self):
+        """ This abstract class should not implement the run method """
+        with self.assertRaises(NotImplementedError):
             self.clazz.run()
