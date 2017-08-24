@@ -148,16 +148,16 @@ class Number(models.Model):
         if not self.computation:
             return
         if self.person and any((force, self._template is None, self._result is None)):
-            self._result = self.results.filter(person=self.person, value=self.computation.value).first()
+            self._result = self.results.filter(person=self.person, value=self.computation.result).first()
             if self._result is None:
                 self._result = Result(number=self,
                                       person=self.person,
-                                      value=self.computation.value)
+                                      value=self.computation.result)
                 self._result.save()
 
-            self._template = self.templates.filter(value=self.computation.value).first()
+            self._template = self.templates.filter(value=self.computation.result).first()
             if self._template is None:
-                self._template = Template(number=self, value=self.computation.value)
+                self._template = Template(number=self, value=self.computation.result)
                 self._template.save()
 
 

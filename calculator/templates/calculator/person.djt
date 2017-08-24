@@ -27,7 +27,7 @@
                 </label>
 
                 <span class="number-circle" >
-                    {{ number.computation.value }}
+                    {{ number.computation.result }}
                 </span>
             </h3>
 
