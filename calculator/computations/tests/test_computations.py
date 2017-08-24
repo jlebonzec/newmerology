@@ -19,6 +19,7 @@ from calculator.computations import (
     heredity,
     intimate,
     lifepath,
+    psychic,
     spiritual,
 )
 
@@ -133,6 +134,26 @@ class TestIntimate(AbstractTestMethod):
     def test_example_intimate(self):
         """ The example should respect a certain format """
         self.assertEqual(self.expected_example, self.method.example)
+        self.assertEqual(self.expected_example, self.method.example)
+
+
+class TestPsychic(AbstractTestMethod):
+
+    computation_class = psychic.Computation
+
+    def setUp(self):
+        self.expected_result = 3
+        self.expected_example = [
+            '1984-11-21',
+            '21 → ' + str(self.expected_result)
+        ]
+
+    def test_result_spiritual(self):
+        """ The result should be the one expected """
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_spiritual(self):
+        """ The example should respect a certain format """
         self.assertEqual(self.expected_example, self.method.example)
 
 
