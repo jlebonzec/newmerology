@@ -33,7 +33,8 @@ class AbstractTestMethod(TestCase):
         self.person = Person(
             given_names="John Maximilien",
             last_name="Doe-Smith",
-            birth=date(1984, 11, 21)
+            birth=date(1984, 11, 21),
+            pk="test_computations"
         )
         self.method = self.computation_class(self.person)
 

@@ -62,6 +62,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
+CACHES = {
+    # Intended to use for low level punctual caching
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'newmerology-cache',
+        'TIMEOUT': 60,
+        'OPTIONS': {
+            'MAX_ENTRIES': 256,
+        }
+    }
+}
+
 ROOT_URLCONF = 'newmerology.urls'
 
 TEMPLATES = [

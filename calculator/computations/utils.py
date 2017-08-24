@@ -5,6 +5,8 @@ Also contains various utility methods used for computations.
 import re
 import datetime
 
+from django.core.cache import cache
+
 from calculator.config import CONVERSION, POWERS
 
 
@@ -71,10 +73,11 @@ class AbstractGridComputation(AbstractBaseComputation):
 
     def __init__(self, person):
         super(AbstractGridComputation, self).__init__(person)
-        self._grid = None
         self.cell_id = None
+        cache_prefix = "person_grid_"
+        self._cache_key = cache_prefix + str(person.pk)
+        self._grid = cache.get(self._cache_key, {})
 
-    # TODO: store grid in cache
     @property
     def grid(self):
         """ Generate the grid if needed and return it """
@@ -91,6 +94,7 @@ class AbstractGridComputation(AbstractBaseComputation):
                     'example': example,
                 }
 
+            cache.set(self._cache_key, self._grid)
         return self._grid
 
     def run(self):

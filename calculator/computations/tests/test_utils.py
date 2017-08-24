@@ -134,7 +134,7 @@ class TestAbstractBaseComputation(TestCase):
         """ Set up attributes used several times """
         super(TestAbstractBaseComputation, cls).setUpClass()
         cls.today = date.today()
-        cls.person = Person(given_names="John", last_name="Doe", birth=cls.today)
+        cls.person = Person(given_names="John", last_name="Doe", birth=cls.today, pk="test_examplify")
         cls.clazz = utils.AbstractBaseComputation(cls.person)
 
     def test_abstract_base_computation_attributes_are_set(self):
@@ -158,7 +158,7 @@ class TestAbstractGridComputation(TestCase):
         """ Set up attributes used several times """
         super(TestAbstractGridComputation, cls).setUpClass()
         cls.today = date.today()
-        cls.person = Person(given_names="John", last_name="Doe", birth=cls.today)
+        cls.person = Person(given_names="John", last_name="Doe", birth=cls.today, pk="test_abstract_grid")
         cls.clazz = utils.AbstractGridComputation(cls.person)
 
     def test_abstract_grid_computation_generates_correct_grid(self):
