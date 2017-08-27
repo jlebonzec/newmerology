@@ -2,11 +2,11 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300; }
 
 p {
-  font-size: 1.15rem;
+  font-size: 1.168rem;
   margin: 0; }
 
 .tabs .tab a {
-  font-size: 1.1rem; }
+  font-size: 1.168rem; }
 
 header {
   height: 122px;
@@ -58,6 +58,25 @@ form {
   text-align: center;
   font-size: 32px; }
 
+.grid {
+  width: auto; }
+  .grid table, .grid tr, .grid td, .grid th {
+    border: 0 solid;
+    color: #f3e5f5; }
+  .grid tr:not(:last-of-type) {
+    border-bottom-width: 1px; }
+  .grid td, .grid th {
+    width: 1.5em;
+    height: 1.5em;
+    padding: 0;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 200; }
+    .grid td:not(:last-of-type), .grid th:not(:last-of-type) {
+      border-right-width: 1px; }
+  .grid .current {
+    font-weight: 300; }
+
 h2 {
   text-align: center; }
 
@@ -78,10 +97,10 @@ h2 {
   max-height: 0;
   overflow: hidden;
   transition: max-height linear 250ms;
-  margin: 0;
-  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
   position: relative;
-  top: -1.1rem; }
+  top: -0.92rem; }
   .number-wrapper .example-wrapper li {
     font-family: monospace;
     list-style: none; }
@@ -94,12 +113,18 @@ h2 {
   font-style: italic;
   font-size: 1.24rem; }
 
-.number-wrapper .number-circle {
-  position: absolute;
-  right: 0;
-  bottom: -8px;
-  color: #f3e5f5;
-  border-color: #f3e5f5; }
+.number-wrapper .value {
+  margin-top: 1.46rem; }
+  .number-wrapper .value .number-circle {
+    position: relative;
+    top: -8px;
+    color: #f3e5f5;
+    border-color: #f3e5f5; }
+  .number-wrapper .value .grid {
+    position: relative;
+    top: -1.168rem; }
+  .number-wrapper .value > * {
+    float: right; }
 
 .number-wrapper .explanations {
   margin-top: 0.46rem;
@@ -161,6 +186,19 @@ h2 {
   h2 .last_name, h2 .given_names, h2 .birth {
     display: block;
     text-align: center; } }
+
+@media (max-width: 991px) {
+  .number-wrapper .header {
+    text-align: center; }
+  .number-wrapper .value {
+    text-align: center; }
+    .number-wrapper .value > * {
+      float: none;
+      margin: 0 auto; } }
+
+@media (min-width: 992px) {
+  .number-wrapper .header {
+    margin-bottom: 0; } }
 
 .picker__header select {
   position: inherit;

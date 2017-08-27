@@ -74,6 +74,9 @@ class AbstractGridComputation(AbstractBaseComputation):
     def __init__(self, person):
         super(AbstractGridComputation, self).__init__(person)
         self.cell_id = None
+        self.width = 3
+        self.height = 3
+
         cache_prefix = "person_grid_"
         self._cache_key = cache_prefix + str(person.pk)
         self._grid = cache.get(self._cache_key, {})
@@ -85,7 +88,8 @@ class AbstractGridComputation(AbstractBaseComputation):
             self._grid = {}
             digits = digitize(self.full_name)
 
-            for i in range(1, 10):
+            size = self.width * self.height + 1
+            for i in range(1, size):
                 count, explanation = count_occurrences(digits, i, explain=True)
                 example = examplify(self.full_name, explanation, count)
 

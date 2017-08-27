@@ -1,30 +1,32 @@
 {% load tranz %}
 
 <!-- Modal for template editing -->
-<div id="{{ prefix }}{{ id }}" class="modal modal-fixed-footer js-edit">
-    <div class="modal-content">
-        <h4>{% tranz title %}</h4>
+{% spaceless %}
+    <div id="{{ prefix }}{{ id }}" class="modal modal-fixed-footer js-edit">
+        <div class="modal-content">
+            <h4>{% tranz title %}</h4>
 
-        <form method="post" action="{{ route }}">
-            {% csrf_token %}
+            <form method="post" action="{{ route }}">
+                {% csrf_token %}
 
-            <textarea data-name="explanation-md">
-                {{ object.explanation_md }}
-            </textarea>
-        </form>
+                <textarea data-name="explanation-md">
+                    {{ object.explanation_md }}
+                </textarea>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button class="modal-action waves-effect btn btn-flat js-submit teal lighten-2 white-text">
+                {% tranz "actions.ok" %}
+            </button>
+
+            <button class="modal-action waves-effect btn-flat js-cancel red lighten-2 white-text">
+                {% tranz "actions.cancel" %}
+            </button>
+
+            <button class="modal-action modal-close waves-effect btn-flat">
+                {% tranz "actions.close" %}
+            </button>
+        </div>
     </div>
-
-    <div class="modal-footer">
-        <button class="modal-action waves-effect btn btn-flat js-submit teal lighten-2 white-text">
-            {% tranz "actions.ok" %}
-        </button>
-
-        <button class="modal-action waves-effect btn-flat js-cancel red lighten-2 white-text">
-            {% tranz "actions.cancel" %}
-        </button>
-
-        <button class="modal-action modal-close waves-effect btn-flat">
-            {% tranz "actions.close" %}
-        </button>
-    </div>
-</div>
+{% endspaceless %}

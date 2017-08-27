@@ -1,6 +1,7 @@
 {% extends 'calculator/base.djt' %}
 {% load i18n%}
 {% load tranz %}
+{% load display_grid %}
 {% block page_body %}
     {# TODO: FIX XSS #}
     {{ super }}
@@ -21,24 +22,35 @@
 
     {% for number in object.numbers %}
         <div class="number-wrapper card-panel purple darken-4 hoverable">
-            <h3 class="number-name">
-                <label class="browser-default" for="example-{{ number.code }}">
-                    {{ number.name }}
-                </label>
+            <div class="header row">
+                <div class="text col l8 m12 s12">
+                    <h3 class="number-name">
+                        <label class="browser-default" for="example-{{ number.code }}">
+                            {{ number.name }}
+                        </label>
+                    </h3>
 
-                <span class="number-circle" >
-                    {{ number.computation.result }}
-                </span>
-            </h3>
+                    <input type="checkbox" id="example-{{ number.code }}" class="toggle-example"/>
+                    <ul class="example-wrapper">
+                        {% for detail in number.computation.example %}
+                            <li class="example">{{ detail }}</li>
+                        {% endfor %}
+                    </ul>
 
-            <input type="checkbox" id="example-{{ number.code }}" class="toggle-example"/>
-            <ul class="example-wrapper">
-                {% for detail in number.computation.example %}
-                    <li class="example">{{ detail }}</li>
-                {% endfor %}
-            </ul>
+                    <p class="number-description">{{ number.description }}</p>
+                </div>
 
-            <p class="number-description">{{ number.description }}</p>
+                <div class="value col l4 m12 s12">
+
+                    {% if number.computation.grid %}
+                        {% display_grid number.computation %}
+                    {% else %}
+                        <span class="number-circle" >
+                            {{ number.computation.result }}
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
 
             <div class="explanations purple lighten-5">
                 <ul class="tabs tabs-fixed-width">

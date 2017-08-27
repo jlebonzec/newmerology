@@ -7,12 +7,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-  font-size: 1.15rem;
+  font-size: 1.168rem;
   margin: 0;
 }
 
 .tabs .tab a {
-  font-size: 1.1rem;
+  font-size: 1.168rem;
 }
 
 // -- End of general design
@@ -97,6 +97,37 @@ form {
   font-size: 32px;  // font-size of h2 - 1
 }
 
+// -- Grid
+.grid {
+  width: auto;
+
+  table, tr, td, th {
+    border: 0 solid;
+    color: $card-color-text;
+  }
+
+  tr:not(:last-of-type) {
+    border-bottom-width: 1px;
+  }
+
+  td, th {
+    width: 1.5em;
+    height: 1.5em;
+    padding: 0;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 200;
+
+    &:not(:last-of-type) {
+      border-right-width: 1px;
+    }
+  }
+
+  .current {
+    font-weight: 300;
+  }
+}
+
 h2 {
   text-align: center;
 }
@@ -105,7 +136,6 @@ h2 {
   .number-name, .example-wrapper, .number-description {
     color: $card-color-text;
   }
-  //color: $color-on-card;
 
   .number-name {
     position: relative;
@@ -125,15 +155,13 @@ h2 {
   }
 
   .example-wrapper {
-    //display: none;
     max-height: 0;
     overflow: hidden;
     transition: max-height linear 250ms;
-
-    margin: 0;
-    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
     position: relative;
-    top: -1.1rem;
+    top: -0.92rem;
 
     li {
       font-family: monospace;
@@ -153,12 +181,24 @@ h2 {
     font-size: 1.24rem;
   }
 
-  .number-circle {
-    position: absolute;
-    right: 0;
-    bottom: -8px; // Computed from the font-size
-    color: $card-color-text;
-    border-color: $card-color-text;
+  .value {
+    margin-top: 1.46rem;
+
+    .number-circle {
+      position: relative;
+      top: -8px;  // Computed from font-size
+      color: $card-color-text;
+      border-color: $card-color-text;
+    }
+
+    .grid {
+      position: relative;
+      top: -1.168rem;
+    }
+
+    & > * {
+      float: right;
+    }
   }
 
   .explanations {
@@ -272,6 +312,30 @@ h2 {
       display: block;
       text-align: center;
     }
+  }
+}
+
+@media (max-width: 991px) {
+  .number-wrapper {
+
+    .header {
+      text-align: center
+    }
+
+    .value {
+      text-align: center;
+
+      & > * {
+        float: none;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .number-wrapper .header {
+    margin-bottom: 0;
   }
 }
 

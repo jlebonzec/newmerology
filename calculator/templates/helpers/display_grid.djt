@@ -1,0 +1,17 @@
+<table class="grid">
+    {% for key, value in grid.items %}
+        {% with row_length=3 %}
+            {% if forloop.counter0|divisibleby:row_length %}
+                <tr>
+            {% endif %}
+
+            <td {% if cell_id == key %} class="current" {% endif %}>
+                {{ value.count }}
+            </td>
+
+            {% if forloop.counter0|add:1|divisibleby:row_length %}
+                </tr>
+            {% endif %}
+        {% endwith %}
+    {% endfor %}
+</table>
