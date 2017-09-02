@@ -38,6 +38,7 @@ class Person(models.Model):
     class Meta:
         unique_together = ('given_names', 'last_name', 'birth')
         index_together = ('given_names', 'last_name', 'birth')
+        ordering = ["last_name", "given_names", "birth"]
 
     @property
     def first_name(self):

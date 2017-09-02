@@ -1,0 +1,17 @@
+{% extends 'calculator/base.djt' %}
+{% load i18n%}
+{% load tranz %}
+{% block page_body %}
+    {{ super }}
+
+    <ul>
+    {% for person in object_list %}
+        <li><a href="{% url 'calc:person' person.pk  %}">{{ person }}</a></li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ super }}
+{% endblock %}

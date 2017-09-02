@@ -6,6 +6,10 @@ urlpatterns = [
     # ex: /calculator/
     url(r'^$', views.calculation, name='home'),
 
+    url('^person/$',
+        views.PersonListView.as_view(template_name="calculator/person_list.djt"),
+        name="persons"),
+
     # ex: /calculator/person/4
     url(r'^person/(?P<pk>\d+)/$',
         views.PersonDetailView.as_view(template_name="calculator/person.djt"),

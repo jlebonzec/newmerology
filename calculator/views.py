@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render, reverse
 from django.utils.html import escape
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from html import unescape
 
 from . import forms
@@ -36,8 +37,16 @@ def calculation(request):
     ))
 
 
+class PersonListView(ListView):
+
+    model = models.Person
+    # TODO: find a way to give nice title
+    title = "List view"
+
+
 class PersonDetailView(DetailView):
 
+    # TODO: find a way to give nice title
     model = models.Person
 
 
