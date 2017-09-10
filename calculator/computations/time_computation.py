@@ -64,7 +64,7 @@ class AbstractActionComputation(AbstractTimeComputation):
         action_1_value = simplify(self.birth.month + self.birth.day)
         action_1_example = examplify(
             "%s + %s" % (tranz("g.month"), tranz("g.day")),
-            "%d + %d" % (self.birth.month, self.birth.day),
+            "%02d + %02d" % (self.birth.month, self.birth.day),
             action_1_value
         )
 
@@ -72,7 +72,7 @@ class AbstractActionComputation(AbstractTimeComputation):
         action_2_value = simplify(self.birth.year + self.birth.day)
         action_2_example = examplify(
             "%s + %s" % (tranz("g.year"), tranz("g.day")),
-            "%d + %d" % (self.birth.year, self.birth.day),
+            "%04d + %02d" % (self.birth.year, self.birth.day),
             action_2_value
         )
 
@@ -91,7 +91,7 @@ class AbstractActionComputation(AbstractTimeComputation):
         action_4_value = simplify(self.birth.year + self.birth.month)
         action_4_example = examplify(
             "%s + %s" % (tranz("g.year"), tranz("g.month")),
-            "%d + %d" % (self.birth.year, self.birth.month),
+            "%04d + %02d" % (self.birth.year, self.birth.month),
             action_4_value
         )
 
@@ -113,7 +113,7 @@ class AbstractCycleComputation(AbstractTimeComputation):
         cycle_1_value = simplify(self.birth.month)
         cycle_1_example = examplify(
             tranz("g.month"),
-            self.birth.month,
+            "%02d" % self.birth.month,
             cycle_1_value
         )
 
@@ -121,7 +121,7 @@ class AbstractCycleComputation(AbstractTimeComputation):
         cycle_2_value = simplify(self.birth.day)
         cycle_2_example = examplify(
             tranz("g.day"),
-            self.birth.day,
+            "%02d" % self.birth.day,
             cycle_2_value
         )
 
@@ -129,7 +129,7 @@ class AbstractCycleComputation(AbstractTimeComputation):
         cycle_3_value = simplify(self.birth.year)
         cycle_3_example = examplify(
             tranz("g.year"),
-            self.birth.year,
+            "%04d" % self.birth.year,
             cycle_3_value
         )
 

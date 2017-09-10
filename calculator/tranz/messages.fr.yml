@@ -13,3 +13,12 @@ actions:
   cancel: "Annuler"
   ok: "Valider"
   close: "Fermer"
+
+g:
+  day: "JJ"
+  month: "MM"
+  year: "AAAA"
+  action_1: "première action"
+  action_2: "deuxième action"
+  action_3: "troisième action"
+  action_4: "quatrième action"
