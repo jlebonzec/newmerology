@@ -29,11 +29,13 @@
 <header class="purple darken-4 valign-wrapper">
     {% block page_header %}
         <h1 class="center-align white-text">
-            {% if title %}
-                {% tranz title %}
-            {% else %}
-                {% tranz "site.title" %}
-            {% endif %}
+            <a href="{% url "calc:home" %}">
+                {% if title %}
+                    {% tranz title %}
+                {% else %}
+                    {% tranz "site.title" %}
+                {% endif %}
+            </a>
         </h1>
     {% endblock %}
 </header>

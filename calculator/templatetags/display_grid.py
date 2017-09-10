@@ -1,4 +1,4 @@
-from ..computations.utils import AbstractGridComputation
+from calculator.computations.grid_computation import AbstractGridComputation
 
 from django import template
 

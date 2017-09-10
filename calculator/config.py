@@ -42,3 +42,6 @@ POWERS = (11, 22, 33)
 
 # List of Markdown extensions to enable
 MARKDOWN_EXTENSIONS = ['markdown.extensions.extra', 'markdown.extensions.sane_lists']
+
+# The maximum value to display on a timeline object
+TIMELINE_MAXIMUM = 100

@@ -6,7 +6,11 @@
 
     <ul>
     {% for person in object_list %}
-        <li><a href="{% url 'calc:person' person.pk  %}">{{ person }}</a></li>
+        <li>
+            <a href="{% url 'calc:person' person.pk  %}">
+                {{ person.last_name|upper }} {{ person.given_names|title }} ({{ person.birth }})
+            </a>
+        </li>
     {% endfor %}
     </ul>
 

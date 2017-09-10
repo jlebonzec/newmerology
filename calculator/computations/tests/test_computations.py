@@ -6,6 +6,10 @@ from django.test import TestCase
 from calculator.models import Person
 from calculator.computations import (
     active,
+    action_1,
+    action_2,
+    action_3,
+    action_4,
     cell_1,
     cell_2,
     cell_3,
@@ -15,6 +19,9 @@ from calculator.computations import (
     cell_7,
     cell_8,
     cell_9,
+    cycle_1,
+    cycle_2,
+    cycle_3,
     expression,
     heredity,
     intimate,
@@ -54,8 +61,8 @@ class TestLifePath(AbstractTestMethod):
     def test_example_lifepath(self):
         """ The example should respect a certain format """
         self.assertEqual([
-            '1984-11-21',
-            '1984+11+21 → ' + str(self.expected_result)
+            'YYYY + MM + DD',
+            '1984 + 11 + 21 → ' + str(self.expected_result)
         ], self.method.example)
 
 
@@ -355,5 +362,145 @@ class TestCell9(AbstractTestMethod):
         self.assertEqual(self.expected_result, self.method.result)
 
     def test_example_cell_9(self):
+        """ The example should respect a certain format """
+        self.assertEqual(self.expected_example, self.method.example)
+
+
+class TestAction1(AbstractTestMethod):
+
+    computation_class = action_1.Computation
+
+    def setUp(self):
+        self.expected_result = 5
+        self.expected_example = [
+            'MM + DD',
+            '11 + 21 → ' + str(self.expected_result)
+        ]
+
+    def test_result_action_1(self):
+        """ The result should be the one expected """
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_action_1(self):
+        """ The example should respect a certain format """
+        self.assertEqual(self.expected_example, self.method.example)
+
+
+class TestAction2(AbstractTestMethod):
+
+    computation_class = action_2.Computation
+
+    def setUp(self):
+        self.expected_result = 7
+        self.expected_example = [
+            'YYYY + DD',
+            '1984 + 21 → ' + str(self.expected_result)
+        ]
+
+    def test_result_action_2(self):
+        """ The result should be the one expected """
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_action_2(self):
+        """ The example should respect a certain format """
+        self.assertEqual(self.expected_example, self.method.example)
+
+
+class TestAction3(AbstractTestMethod):
+
+    computation_class = action_3.Computation
+
+    def setUp(self):
+        self.expected_result = 3
+        self.expected_example = [
+            'FIRST ACTION + SECOND ACTION',
+            '5 + 7 → ' + str(self.expected_result)
+        ]
+
+    def test_result_action_3(self):
+        """ The result should be the one expected """
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_action_3(self):
+        """ The example should respect a certain format """
+        self.assertEqual(self.expected_example, self.method.example)
+
+
+class TestAction4(AbstractTestMethod):
+
+    computation_class = action_4.Computation
+
+    def setUp(self):
+        self.expected_result = 6
+        self.expected_example = [
+            'YYYY + MM',
+            '1984 + 11 → ' + str(self.expected_result)
+        ]
+
+    def test_result_action_4(self):
+        """ The result should be the one expected """
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_action_4(self):
+        """ The example should respect a certain format """
+        self.assertEqual(self.expected_example, self.method.example)
+
+
+class TestCycle1(AbstractTestMethod):
+
+    computation_class = cycle_1.Computation
+
+    def setUp(self):
+        self.expected_result = 11
+        self.expected_example = [
+            'MM',
+            '11 → ' + str(self.expected_result)
+        ]
+
+    def test_result_cycle_1(self):
+        """ The result should be the one expected """
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_cycle_1(self):
+        """ The example should respect a certain format """
+        self.assertEqual(self.expected_example, self.method.example)
+
+
+class TestCycle2(AbstractTestMethod):
+
+    computation_class = cycle_2.Computation
+
+    def setUp(self):
+        self.expected_result = 3
+        self.expected_example = [
+            'DD',
+            '21 → ' + str(self.expected_result)
+        ]
+
+    def test_result_cycle_2(self):
+        """ The result should be the one expected """
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_cycle_2(self):
+        """ The example should respect a certain format """
+        self.assertEqual(self.expected_example, self.method.example)
+
+
+class TestCycle3(AbstractTestMethod):
+
+    computation_class = cycle_3.Computation
+
+    def setUp(self):
+        self.expected_result = 22
+        self.expected_example = [
+            'YYYY',
+            '1984 → ' + str(self.expected_result)
+        ]
+
+    def test_result_cycle_3(self):
+        """ The result should be the one expected """
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_cycle_3(self):
         """ The example should respect a certain format """
         self.assertEqual(self.expected_example, self.method.example)

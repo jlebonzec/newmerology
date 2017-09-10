@@ -1,0 +1,14 @@
+<div class="timeline">
+    <div class="horizontal-line">
+        {% for period in periods %}
+            <div class="line-section" style="width: {{ period.size }}; left: {{ period.start }}%">
+                <div class="bottom-text">{{ period.start }}</div>
+                <div class="top-text {% if period_id == forloop.counter0 %}current{% endif %}">
+                    {{ period.content }}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="arrow-right"></div>
+        <div class="now" style="left: {{ now }}%"></div>
+    </div>
+</div>

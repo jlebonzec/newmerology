@@ -1,5 +1,6 @@
 $card-color: #4a148c;
 $card-color-text: #f3e5f5;
+$card-color-alternate: #EDDE32;
 
 // -- General design
 h1, h2, h3, h4, h5, h6 {
@@ -23,6 +24,10 @@ header {
 
   h1 {
     width: 100%;
+
+    a,a:link, a:visited, a:hover, a:focus, a:active {
+      color: inherit;
+    }
   }
 }
 
@@ -124,7 +129,69 @@ form {
   }
 
   .current {
+    font-weight: 400;
+  }
+}
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+
+  border-left: 10px solid;
+}
+
+// -- Timeline
+.timeline {
+  position: relative;
+  text-align: center;
+
+  .horizontal-line {
+    border: 1px solid;
+    width: 100%;
+  }
+
+  .arrow-right {
+    position: absolute;
+    right: 0;
+    bottom: 1px;
+    transform: translateY(50%);
+  }
+
+  .line-section {
+    border-left: 1px solid;
+    position: absolute;
+    height: 20px;
+    left: 0;
+    bottom: -10px;
+  }
+
+  .bottom-text {
+    position: relative;
+    top: 20px;
+    left: -50%;
+    font-size: 18px;
     font-weight: 300;
+  }
+
+  .top-text {
+    position: relative;
+    top: -55px;
+    font-size: 26px;
+    font-weight: 200;
+  }
+
+  .current {
+    font-weight: 400;
+  }
+
+  .now {
+    border: 5px solid $card-color-alternate;
+    border-radius: 50%;
+    position: absolute;
+    top: 100%;
+    transform: translateY(-50%);
   }
 }
 
@@ -184,6 +251,10 @@ h2 {
   .value {
     margin-top: 1.46rem;
 
+    & > * {
+      float: right;
+    }
+
     .number-circle {
       position: relative;
       top: -8px;  // Computed from font-size
@@ -196,8 +267,10 @@ h2 {
       top: -1.168rem;
     }
 
-    & > * {
-      float: right;
+    .timeline {
+      float: none;
+      top: 1.46rem;
+      color: $card-color-text;
     }
   }
 
@@ -302,6 +375,10 @@ h2 {
       margin-right: .1rem;
     }
   }
+}
+
+.modal-trigger {
+  cursor: pointer;
 }
 
 

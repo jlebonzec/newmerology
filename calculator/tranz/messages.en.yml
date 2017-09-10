@@ -13,3 +13,12 @@ actions:
   cancel: "Cancel"
   ok: "Validate"
   close: "Close"
+
+g:
+  day: "DD"
+  month: "MM"
+  year: "YYYY"
+  action_1: "first action"
+  action_2: "second action"
+  action_3: "third action"
+  action_4: "fourth action"

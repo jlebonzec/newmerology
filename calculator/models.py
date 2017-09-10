@@ -1,11 +1,10 @@
+from datetime import date
 from django.db import models
 
 from calculator.utils import markdownify
 from importlib import import_module
 
 from calculator.config import COMPUTATION_METHODS_PATH, GIVEN_NAMES_SEPARATOR
-
-# TODO: names and __str__ / __repr__
 
 """ Models and Signals used during the calculation
 
@@ -35,6 +34,8 @@ class Person(models.Model):
     birth = models.DateField(null=False, blank=False, help_text="YYYY-MM-DD")
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=False, blank=False)
 
+    _age = None
+
     class Meta:
         unique_together = ('given_names', 'last_name', 'birth')
         index_together = ('given_names', 'last_name', 'birth')
@@ -45,10 +46,6 @@ class Person(models.Model):
         return self.given_names.split(GIVEN_NAMES_SEPARATOR)[0].title()
 
     @property
-    def middle_names(self):
-        return [n.title() for n in self.given_names.split(GIVEN_NAMES_SEPARATOR)[1:]]
-
-    @property
     def full_name(self):
         return " ".join((self.last_name, self.given_names))
 
@@ -57,6 +54,16 @@ class Person(models.Model):
         if self._numbers is None:
             self.refresh_numbers()
         return self._numbers
+
+    @property
+    def age(self):
+        """ Return the current age of the person """
+        if self._age is None:
+            today = date.today()
+            age_this_year = today.year - self.birth.year
+            bday_in_future = (today.month, today.day) < (self.birth.month, self.birth.day)
+            self._age = age_this_year - bday_in_future
+        return self._age
 
     def __init__(self, *args, **kwargs):
         super(Person, self).__init__(*args, **kwargs)
@@ -98,7 +105,6 @@ class Number(models.Model):
     computation_method = models.CharField(max_length=80, null=True)
 
     # TODO: Create methods to handle position while inserting or swapping
-    # TODO: How to handle grid and numerological table?
 
     class Meta:
         ordering = ['position', 'code']

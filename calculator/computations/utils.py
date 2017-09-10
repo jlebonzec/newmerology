@@ -5,12 +5,9 @@ Also contains various utility methods used for computations.
 import re
 import datetime
 
-from django.core.cache import cache
-
 from calculator.config import CONVERSION, POWERS
 
 
-# TODO: use Person? Remove middle_name
 class AbstractBaseComputation(object):
     """ AbstractBaseComputation. Every other method should inherit from this one, implementing run()
 
@@ -21,10 +18,10 @@ class AbstractBaseComputation(object):
         self.person = person
         self.given_names = person.given_names
         self.first_name = person.first_name
-        self.middle_names = person.middle_names
         self.last_name = person.last_name
         self.full_name = person.full_name
         self.birth = person.birth
+        self.age = person.age
         self.gender = person.gender
         self.today = datetime.date.today()
 
@@ -59,59 +56,6 @@ class AbstractBaseComputation(object):
 
         This is the core method that needs to be implemented by sub-methods.
         """
-        raise NotImplementedError()
-
-
-class AbstractGridComputation(AbstractBaseComputation):
-    """ AbstractGridComputation represents the computation of a cell in the grid.
-    
-    Because of how the display of the grid work, we have to compute the grid for every cell.
-    Despite this operation being pretty fast (9 cells maximum), caching it avoids unnecessary work.
-    
-    :type person: models.Person
-    """
-
-    def __init__(self, person):
-        super(AbstractGridComputation, self).__init__(person)
-        self.cell_id = None
-        self.width = 3
-        self.height = 3
-
-        cache_prefix = "person_grid_"
-        self._cache_key = cache_prefix + str(person.pk)
-        self._grid = cache.get(self._cache_key, {})
-
-    @property
-    def grid(self):
-        """ Generate the grid if needed and return it """
-        if not self._grid:
-            self._grid = {}
-            digits = digitize(self.full_name)
-
-            size = self.width * self.height + 1
-            for i in range(1, size):
-                count, explanation = count_occurrences(digits, i, explain=True)
-                example = examplify(self.full_name, explanation, count)
-
-                self._grid[i] = {
-                    'count': count,
-                    'example': example,
-                }
-
-            cache.set(self._cache_key, self._grid)
-        return self._grid
-
-    def run(self):
-        if self.cell_id is None:
-            raise ValueError("Set a cell_id to compute the results")
-
-        self._result = self.grid[self.cell_id]['count']
-        self._example = self.grid[self.cell_id]['example']
-
-
-class AbstractTimeComputation(AbstractBaseComputation):
-
-    def run(self):
         raise NotImplementedError()
 
 
@@ -178,7 +122,6 @@ def simplify(number, keep_power=True):
     :param keep_power: If we want to keep the powers (over 9)
     :return: a simplified number
     """
-    # TODO: return an object with power?
     def add_digits(num):
         """ Add all the digits of a number together """
         res = 0

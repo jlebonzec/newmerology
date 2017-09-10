@@ -13,6 +13,8 @@ header {
   margin-bottom: 3em; }
   header h1 {
     width: 100%; }
+    header h1 a, header h1 a:link, header h1 a:visited, header h1 a:hover, header h1 a:focus, header h1 a:active {
+      color: inherit; }
 
 form {
   /* label focus color */
@@ -75,7 +77,51 @@ form {
     .grid td:not(:last-of-type), .grid th:not(:last-of-type) {
       border-right-width: 1px; }
   .grid .current {
+    font-weight: 400; }
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid; }
+
+.timeline {
+  position: relative;
+  text-align: center; }
+  .timeline .horizontal-line {
+    border: 1px solid;
+    width: 100%; }
+  .timeline .arrow-right {
+    position: absolute;
+    right: 0;
+    bottom: 1px;
+    transform: translateY(50%); }
+  .timeline .line-section {
+    border-left: 1px solid;
+    position: absolute;
+    height: 20px;
+    left: 0;
+    bottom: -10px; }
+  .timeline .bottom-text {
+    position: relative;
+    top: 20px;
+    left: -50%;
+    font-size: 18px;
     font-weight: 300; }
+  .timeline .top-text {
+    position: relative;
+    top: -55px;
+    font-size: 26px;
+    font-weight: 200; }
+  .timeline .current {
+    font-weight: 400; }
+  .timeline .now {
+    border: 5px solid #EDDE32;
+    border-radius: 50%;
+    position: absolute;
+    top: 100%;
+    transform: translateY(-50%); }
 
 h2 {
   text-align: center; }
@@ -115,6 +161,8 @@ h2 {
 
 .number-wrapper .value {
   margin-top: 1.46rem; }
+  .number-wrapper .value > * {
+    float: right; }
   .number-wrapper .value .number-circle {
     position: relative;
     top: -8px;
@@ -123,8 +171,10 @@ h2 {
   .number-wrapper .value .grid {
     position: relative;
     top: -1.168rem; }
-  .number-wrapper .value > * {
-    float: right; }
+  .number-wrapper .value .timeline {
+    float: none;
+    top: 1.46rem;
+    color: #f3e5f5; }
 
 .number-wrapper .explanations {
   margin-top: 0.46rem;
@@ -181,6 +231,9 @@ h2 {
 .modal .modal-footer button.btn {
   margin-left: .1rem;
   margin-right: .1rem; }
+
+.modal-trigger {
+  cursor: pointer; }
 
 @media (max-width: 1199px) {
   h2 .last_name, h2 .given_names, h2 .birth {

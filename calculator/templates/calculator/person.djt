@@ -2,8 +2,9 @@
 {% load i18n%}
 {% load tranz %}
 {% load display_grid %}
+{% load display_timeline %}
 {% block page_body %}
-    {# TODO: FIX XSS #}
+    {# TODO: FIX XSS and bad look of escaped markdown #}
     {{ super }}
 
     <h2>
@@ -44,6 +45,8 @@
 
                     {% if number.computation.grid %}
                         {% display_grid number.computation %}
+                    {% elif number.computation.periods %}
+                        {% display_timeline number.computation %}
                     {% else %}
                         <span class="number-circle" >
                             {{ number.computation.result }}
@@ -69,13 +72,13 @@
 
                 <div id="tab-{{ number.code }}-1" class="explanation editable modal-trigger"
                   data-target="mod-res-{{ number.result.id }}">
-                    <div class="formatted">{{ number.result.explanation|safe }}</div>
+                    <div class="formatted">{{ number.result.explanation|default:"<br>"|safe }}</div>
                     <div class="raw">{{ number.result.explanation_md }}</div>
                 </div>
 
                 <div id="tab-{{ number.code }}-2" class="explanation editable modal-trigger"
                    data-target="mod-tpl-{{ number.template.id }}">
-                    <div class="formatted">{{ number.template.explanation|safe }}</div>
+                    <div class="formatted">{{ number.template.explanation|default:"<br>"|safe }}</div>
                     <div class="raw">{{ number.template.explanation_md }}</div>
                 </div>
 

@@ -1,9 +1,9 @@
 """ Second cell of the grid. See the AbstractGridComputation for how it's computed """
 
-from calculator.computations import utils
+from calculator.computations.grid_computation import AbstractGridComputation
 
 
-class Computation(utils.AbstractGridComputation):
+class Computation(AbstractGridComputation):
 
     def __init__(self, *args, **kwargs):
         super(Computation, self).__init__(*args, **kwargs)

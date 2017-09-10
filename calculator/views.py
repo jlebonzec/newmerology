@@ -40,14 +40,16 @@ def calculation(request):
 class PersonListView(ListView):
 
     model = models.Person
-    # TODO: find a way to give nice title
+    template_name = "calculator/person_list.djt"
+    # TODO: find a way to give nice page title
     title = "List view"
 
 
 class PersonDetailView(DetailView):
 
-    # TODO: find a way to give nice title
+    # TODO: find a way to give nice page title
     model = models.Person
+    template_name = "calculator/person.djt"
 
 
 # -- User hidden views (XHR)
