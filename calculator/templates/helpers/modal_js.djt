@@ -1,14 +1,25 @@
 {# -- JS used to display and make modals functional #}
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.modal').modal();
+        $('.modal').modal({
+            ready: function(modal, trigger) {
+                var html = trigger.find('.formatted').html();
+                console.log(html);
+                var raw = toMarkdown(html);
+                var textarea = modal.find('[data-name=explanation-md]');
+
+                // If no value is set already, set it.
+                if (!textarea.val()) {
+                    textarea.val(raw);
+                }
+            }
+        });
 
         // -- Edition bindings
         $('.modal.js-edit').each(function () {
             var self = $(this);
             var id = self[0].id;
             var targeter = $('[data-target=' + id + ']');
-            var targeter_raw = targeter.find('.raw');
             var targeter_html = targeter.find('.formatted');
             var btnSubmit = self.find('.js-submit');
             var btnCancel = self.find('.js-cancel');
@@ -27,8 +38,6 @@
                     },
                     success: function (payload) {
                         var data = payload['data'];
-                        explanation_md.val(data['markdown']);
-                        targeter_raw.text(data['markdown']);
                         targeter_html.html(data['html']);
 
                         self.modal('close');
@@ -41,8 +50,7 @@
 
             // Cancel: reset old value
             btnCancel.on('click', function(event) {
-                var original = targeter_raw.text();
-                explanation_md.val(original);
+                explanation_md.val("");
                 self.modal('close');
             });
         });

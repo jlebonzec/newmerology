@@ -4,7 +4,6 @@
 {% load display_grid %}
 {% load display_timeline %}
 {% block page_body %}
-    {# TODO: FIX XSS and bad look of escaped markdown #}
     {{ super }}
 
     <h2>
@@ -73,13 +72,11 @@
                 <div id="tab-{{ number.code }}-1" class="explanation editable modal-trigger"
                   data-target="mod-res-{{ number.result.id }}">
                     <div class="formatted">{{ number.result.explanation|default:"<br>"|safe }}</div>
-                    <div class="raw">{{ number.result.explanation_md }}</div>
                 </div>
 
                 <div id="tab-{{ number.code }}-2" class="explanation editable modal-trigger"
                    data-target="mod-tpl-{{ number.template.id }}">
                     <div class="formatted">{{ number.template.explanation|default:"<br>"|safe }}</div>
-                    <div class="raw">{{ number.template.explanation_md }}</div>
                 </div>
 
                 {% url 'calc:update_result' number.result.id as route %}

@@ -9,9 +9,7 @@
             <form method="post" action="{{ route }}">
                 {% csrf_token %}
 
-                <textarea data-name="explanation-md">
-                    {{ object.explanation_md }}
-                </textarea>
+                <textarea data-name="explanation-md"></textarea>
             </form>
         </div>
 

@@ -20,6 +20,7 @@
 
     <script type="text/javascript" src="{% static 'js/jquery-3.2.1.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/to-markdown.js' %}"></script>
 
     <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1" />
 </head>
