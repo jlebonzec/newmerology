@@ -18,6 +18,7 @@ g:
   day: "JJ"
   month: "MM"
   year: "AAAA"
+  u_year: "uAAA"  # Année universelle
   action_1: "première action"
   action_2: "deuxième action"
   action_3: "troisième action"

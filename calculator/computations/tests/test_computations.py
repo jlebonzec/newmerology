@@ -26,6 +26,7 @@ from calculator.computations import (
     heredity,
     intimate,
     lifepath,
+    personal_year,
     psychic,
     spiritual,
 )
@@ -175,6 +176,27 @@ class TestSpiritual(AbstractTestMethod):
         self.expected_example = [
             '_OE-__I__ _O__ _A_I_I_IE_',
             '_65 __9__ _6__ _1_9_9_95_ → ' + str(self.expected_result)
+        ]
+
+    def test_result_spiritual(self):
+        """ The result should be the one expected """
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_spiritual(self):
+        """ The example should respect a certain format """
+        self.assertEqual(self.expected_example, self.method.example)
+
+
+class TestPersonalYear(AbstractTestMethod):
+
+    computation_class = personal_year.Computation
+
+    def setUp(self):
+        self.method.today = date(2013, 4, 25)
+        self.expected_result = 2
+        self.expected_example = [
+            'UYYY + MM + DD',
+            '2013 + 11 + 21 → ' + str(self.expected_result)
         ]
 
     def test_result_spiritual(self):

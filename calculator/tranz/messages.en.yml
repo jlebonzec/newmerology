@@ -18,6 +18,7 @@ g:
   day: "DD"
   month: "MM"
   year: "YYYY"
+  u_year: "uYYY"  # Universal year
   action_1: "first action"
   action_2: "second action"
   action_3: "third action"
