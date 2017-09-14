@@ -1,9 +1,9 @@
 from datetime import date
+from importlib import import_module
 from django.db import models
+from django_translate.services import tranz as _
 
 from calculator.utils import markdownify
-from importlib import import_module
-
 from calculator.config import COMPUTATION_METHODS_PATH, GIVEN_NAMES_SEPARATOR
 
 """ Models and Signals used during the calculation
@@ -23,16 +23,21 @@ class Person(models.Model):
     FEMALE = 'F'
     OTHER = 'O'
     GENDER_CHOICES = (
-        (None, 'Gender'),
-        (MALE, 'Male'),
-        (FEMALE, 'Female'),
-        (OTHER, 'Other'),
+        (None, _('model.choice.gender.none').title()),
+        (MALE, _('model.choice.gender.male').title()),
+        (FEMALE, _('model.choice.gender.female').title()),
+        (OTHER, _('model.choice.gender.other').title()),
     )
     given_names = models.CharField(max_length=80, null=False, blank=False,
-                                   help_text="All, space-separated")
-    last_name = models.CharField(max_length=50, null=False, blank=False)
-    birth = models.DateField(null=False, blank=False, help_text="YYYY-MM-DD")
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=False, blank=False)
+                                       verbose_name=_('model.field.given_names'),
+                                   help_text=_('model.help_text.given_names'))
+    last_name = models.CharField(max_length=50, null=False, blank=False,
+                                 verbose_name=_('model.field.last_name'))
+    birth = models.DateField(null=False, blank=False,
+                             verbose_name=_('model.field.birth'),
+                             help_text="YYYY-MM-DD")
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=False, blank=False,
+                              verbose_name=_('model.field.gender'))
 
     _age = None
 
@@ -40,6 +45,8 @@ class Person(models.Model):
         unique_together = ('given_names', 'last_name', 'birth')
         index_together = ('given_names', 'last_name', 'birth')
         ordering = ["last_name", "given_names", "birth"]
+        verbose_name = _('model.name.person.single')
+        verbose_name_plural = _('model.name.person.plural')
 
     @property
     def first_name(self):
@@ -108,6 +115,8 @@ class Number(models.Model):
 
     class Meta:
         ordering = ['position', 'code']
+        verbose_name = _('model.name.number.single')
+        verbose_name_plural = _('model.name.number.plural')
 
     def __init__(self, *args, **kwargs):
         super(Number, self).__init__(*args, **kwargs)
@@ -197,6 +206,8 @@ class Template(AbstractContentModel):
 
     class Meta:
         unique_together = ('number', 'value')
+        verbose_name = _('model.name.template.single')
+        verbose_name_plural = _('model.name.template.plural')
 
     def __repr__(self):
         return "<Template: [%s, %s]>" % (self.number.code, self.value)
@@ -215,6 +226,8 @@ class Result(AbstractContentModel):
 
     class Meta:
         ordering = ['person', 'number', 'value']
+        verbose_name = _('model.name.result.single')
+        verbose_name_plural = _('model.name.result.plural')
 
     def __repr__(self):
         return "<Result: %s - [%s, %s]>" % (self.person, self.number.code, self.value)

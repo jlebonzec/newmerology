@@ -7,7 +7,6 @@
 {% get_current_language as LN %}
 <!DOCTYPE html>
 <html lang="{{ LN }}">
-{# TODO change language #}
 {# TODO minify every answer #}
 <head>
     <meta charset="UTF-8">

@@ -109,7 +109,6 @@ class AbstractCycleComputation(AbstractTimeComputation):
 
     def generate_periods(self):
         cycle_1_start = 0
-        # TODO: Name cycles properly
         cycle_1_value = simplify(self.birth.month)
         cycle_1_example = examplify(
             tranz("g.month"),

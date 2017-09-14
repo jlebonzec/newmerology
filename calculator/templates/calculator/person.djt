@@ -12,7 +12,7 @@
         </span>
 
         <span class="given_names">
-            {{ object.given_names|title }}
+            {{ object.given_names|title }},
         </span>
 
         <span class="birth">

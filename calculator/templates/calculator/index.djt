@@ -1,5 +1,10 @@
 {% extends 'calculator/base.djt' %}
 {% load material_form %}
+{% load tranz %}
+{% load weekdays_short %}
+{% load weekdays_full %}
+{% load months_short %}
+{% load months_full %}
 {% block page_body %}
     {{ super }}
 
@@ -18,15 +23,21 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $('.datepicker').pickadate({
-            {#                monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],#}
+            today: "{% tranz 'actions.today' %}",
+            clear: "{% tranz 'actions.clear' %}",
+            close: "{% tranz 'actions.close' %}",
+            btnToday: '',
+            weekdaysShort: {% weekdays_short %},
+            weekdaysFull: {% weekdays_full %},
+            monthsShort: {% months_short %},
+            monthsFull: {% months_full %},
             {#                format: 'd mmmm yyyy',#}
             formatSubmit: 'yyyy-mm-dd',
             hiddenName: true,
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 100, // Creates a dropdown of 15 years to control year
+            selectMonths: true, // Create a dropdown to control month
+            selectYears: 100, // Create a dropdown of 15 years to control year
             min: -36524, // Max 100 years old
-            max: 366, // Allow a year of prediction
-            buttonToday: ''
+            max: 366 // Allow a year of prediction
         })
     });
     </script>

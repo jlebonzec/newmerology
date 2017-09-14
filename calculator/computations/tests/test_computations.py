@@ -3,6 +3,8 @@
 
 from datetime import date
 from django.test import TestCase
+from django_translate.services import tranz as _
+
 from calculator.models import Person
 from calculator.computations import (
     active,
@@ -62,7 +64,7 @@ class TestLifePath(AbstractTestMethod):
     def test_example_lifepath(self):
         """ The example should respect a certain format """
         self.assertEqual([
-            'YYYY + MM + DD',
+            ' + '.join([_('g.year').upper(), _('g.month').upper(), _('g.day').upper()]),
             '1984 + 11 + 21 → ' + str(self.expected_result)
         ], self.method.example)
 
@@ -195,7 +197,7 @@ class TestPersonalYear(AbstractTestMethod):
         self.method.today = date(2013, 4, 25)
         self.expected_result = 2
         self.expected_example = [
-            'UYYY + MM + DD',
+            ' + '.join([_('g.u_year').upper(), _('g.month').upper(), _('g.day').upper()]),
             '2013 + 11 + 21 → ' + str(self.expected_result)
         ]
 
@@ -395,7 +397,7 @@ class TestAction1(AbstractTestMethod):
     def setUp(self):
         self.expected_result = 5
         self.expected_example = [
-            'MM + DD',
+            ' + '.join([_('g.month').upper(), _('g.day').upper()]),
             '11 + 21 → ' + str(self.expected_result)
         ]
 
@@ -415,7 +417,7 @@ class TestAction2(AbstractTestMethod):
     def setUp(self):
         self.expected_result = 7
         self.expected_example = [
-            'YYYY + DD',
+            ' + '.join([_('g.year').upper(), _('g.day').upper()]),
             '1984 + 21 → ' + str(self.expected_result)
         ]
 
@@ -435,7 +437,7 @@ class TestAction3(AbstractTestMethod):
     def setUp(self):
         self.expected_result = 3
         self.expected_example = [
-            'FIRST ACTION + SECOND ACTION',
+            ' + '.join([_('g.action_1').upper(), _('g.action_2').upper()]),
             '5 + 7 → ' + str(self.expected_result)
         ]
 
@@ -455,7 +457,7 @@ class TestAction4(AbstractTestMethod):
     def setUp(self):
         self.expected_result = 6
         self.expected_example = [
-            'YYYY + MM',
+            ' + '.join([_('g.year').upper(), _('g.month').upper()]),
             '1984 + 11 → ' + str(self.expected_result)
         ]
 
@@ -475,7 +477,7 @@ class TestCycle1(AbstractTestMethod):
     def setUp(self):
         self.expected_result = 11
         self.expected_example = [
-            'MM',
+            _('g.month').upper(),
             '11 → ' + str(self.expected_result)
         ]
 
@@ -495,7 +497,7 @@ class TestCycle2(AbstractTestMethod):
     def setUp(self):
         self.expected_result = 3
         self.expected_example = [
-            'DD',
+            _('g.day').upper(),
             '21 → ' + str(self.expected_result)
         ]
 
@@ -515,7 +517,7 @@ class TestCycle3(AbstractTestMethod):
     def setUp(self):
         self.expected_result = 22
         self.expected_example = [
-            'YYYY',
+            _('g.year').upper(),
             '1984 → ' + str(self.expected_result)
         ]
 
