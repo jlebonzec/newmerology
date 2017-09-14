@@ -1,6 +1,11 @@
 site:
   title: "Newmerology"
 
+page:
+  titles:
+    person_list: "analyses passées"
+    person_detail: "analyse"
+
 model:
   name:
     person:

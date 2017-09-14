@@ -10,7 +10,7 @@
 {# TODO minify every answer #}
 <head>
     <meta charset="UTF-8">
-    <title>{% if title %}{% tranz title %} | {% endif %}{% tranz "site.title" %}</title>
+    <title>{% if view.title %}{{ view.title|title }} | {% elif title %}{% tranz title|title %} | {% endif %}{% tranz "site.title" %}</title>
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.css' %}">
@@ -30,8 +30,10 @@
     {% block page_header %}
         <h1 class="center-align white-text">
             <a href="{% url "calc:home" %}">
-                {% if title %}
-                    {% tranz title %}
+                {% if view.title %}
+                    {{ view.title|title }}
+                {% elif title %}
+                    {% tranz title|title %}
                 {% else %}
                     {% tranz "site.title" %}
                 {% endif %}

@@ -1,11 +1,13 @@
 import json
 
+from html import unescape
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, reverse
 from django.utils.html import escape
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from html import unescape
+
+from django_translate.services import tranz
 
 from . import forms
 from . import models
@@ -41,15 +43,14 @@ class PersonListView(ListView):
 
     model = models.Person
     template_name = "calculator/person_list.djt"
-    # TODO: find a way to give nice page title
-    title = "List view"
+    title = tranz("page.titles.person_list")
 
 
 class PersonDetailView(DetailView):
 
-    # TODO: find a way to give nice page title
     model = models.Person
     template_name = "calculator/person.djt"
+    title = tranz("page.titles.person_detail")
 
 
 # -- User hidden views (XHR)
