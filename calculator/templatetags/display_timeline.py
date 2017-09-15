@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 from django import template
 
 from calculator.computations.time_computation import AbstractTimeComputation
@@ -12,9 +10,9 @@ register = template.Library()
 @register.inclusion_tag('helpers/display_timeline.djt')
 def display_timeline(timeline):
     """ Display a timeline.
-    
+
     If one period starts after the maximum, we normalize the values
-    
+
     :param timeline: The timeline object
     :type timeline: AbstractTimeComputation
     """

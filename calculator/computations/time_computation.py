@@ -19,7 +19,7 @@ def create_period(start, content, example):
 
 class AbstractTimeComputation(AbstractBaseComputation):
     """ AbstractTimeComputation. Every time-related computation should extend this class
-    
+
     :type person: models.Person
     """
 
@@ -78,8 +78,8 @@ class AbstractActionComputation(AbstractTimeComputation):
 
         action_3_start = action_2_start + 9
         action_3_value = simplify(
-            simplify(action_1_value, keep_power=False)
-            + simplify(action_2_value, keep_power=False)
+            simplify(action_1_value, keep_power=False) +
+            simplify(action_2_value, keep_power=False)
         )
         action_3_example = examplify(
             "%s + %s" % (tranz("g.action_1"), tranz("g.action_2")),

@@ -149,18 +149,18 @@ def simplify(number, keep_power=True):
 
 
 def count_occurrences(digitized, c, explain=False):
-    """ Applies a mask so only characters matching will be kept 
-    
+    """ Applies a mask so only characters matching will be kept
+
     :param digitized: the digitized string
     :type digitized: str
-    
+
     :param c: the single character to keep occurrences of
     :type c: int or str
-    
+
     :param explain: if the explanation should be returned as well.
         In such a case, the return value is a tuple (value, explanation)
     :type explain: bool
-    
+
     :return: the count, or the count and the explanation if the latter is wanted too
     :rtype: str or tuple of str
     """

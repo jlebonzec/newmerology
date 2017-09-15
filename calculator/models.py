@@ -29,7 +29,7 @@ class Person(models.Model):
         (OTHER, _('model.choice.gender.other').title()),
     )
     given_names = models.CharField(max_length=80, null=False, blank=False,
-                                       verbose_name=_('model.field.given_names'),
+                                   verbose_name=_('model.field.given_names'),
                                    help_text=_('model.help_text.given_names'))
     last_name = models.CharField(max_length=50, null=False, blank=False,
                                  verbose_name=_('model.field.last_name'))
@@ -157,7 +157,7 @@ class Number(models.Model):
 
     def refresh_explanations(self, force=False):
         """ Refresh the explanation. Will only work if self.computations and self.person are set.
-        
+
         :param force: If we should force the refresh of the explanations (even if already computed)
         :type force: bool
         """

@@ -11,10 +11,10 @@ from calculator.computations.utils import (AbstractBaseComputation,
 
 class AbstractGridComputation(AbstractBaseComputation):
     """ AbstractGridComputation represents the computation of a cell in the grid.
-    
+
     Because of how the display of the grid work, we have to compute the grid for every cell.
     Despite this operation being pretty fast (9 cells maximum), caching it avoids unnecessary work.
-    
+
     :type person: models.Person
     """
 
