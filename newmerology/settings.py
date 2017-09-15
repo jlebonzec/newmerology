@@ -24,6 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '(8-xp4vjg_s9!yr!371ovyqxva0$sx+&#=28u_8s$o^sg09=o4'
 
+CSRF_COOKIE_NAME = 'csrftoken'  # Could be changed for security by obfuscation
+CSRF_COOKIE_SECURE = True  # Browsers may ensure it's sent only over HTTPS
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -51,6 +54,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
     'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -164,3 +168,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'calculator/static/')
 STATIC_URL = '/static/'
 SASS_TEMPLATE_EXTS = ['.html', '.jinja2', '.jade']
 SASS_PROCESSOR_ENABLED = True
+
+
+# -- Import instance specific settings
+
+try:
+    from .instance import *
+except ModuleNotFoundError:
+    pass
