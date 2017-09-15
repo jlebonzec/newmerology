@@ -1,4 +1,5 @@
+newmerology/instance*
 .idea
 *.pyc
 db.sqlite3
-**/migrations/**
+**/migrations/*
