@@ -23,7 +23,7 @@
     {% for number in object.numbers %}
         <div class="number-wrapper card-panel purple darken-4 hoverable">
             <div class="header row">
-                <div class="text col l8 m12 s12">
+                <div class="text col xl8 l12 m12 s12">
                     <h3 class="number-name">
                         <label class="browser-default" for="example-{{ number.code }}">
                             {{ number.name }}
@@ -40,7 +40,7 @@
                     <p class="number-description">{{ number.description }}</p>
                 </div>
 
-                <div class="value col l4 m12 s12">
+                <div class="value col xl4 l12 m12 s12">
 
                     {% if number.computation.grid %}
                         {% display_grid number.computation %}

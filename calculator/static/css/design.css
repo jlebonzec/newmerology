@@ -82,9 +82,9 @@ form {
 .arrow-right {
   width: 0;
   height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 10px solid; }
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 9px solid; }
 
 .timeline {
   position: relative;
@@ -94,8 +94,8 @@ form {
     width: 100%; }
   .timeline .arrow-right {
     position: absolute;
-    right: 0;
-    bottom: 1px;
+    right: -1px;
+    bottom: 0;
     transform: translateY(50%); }
   .timeline .line-section {
     border-left: 1px solid;
@@ -173,7 +173,8 @@ h2 {
     top: -1.168rem; }
   .number-wrapper .value .timeline {
     float: none;
-    top: 1.46rem;
+    margin-top: 1rem;
+    margin-bottom: 2.68rem;
     color: #f3e5f5; }
 
 .number-wrapper .explanations {
@@ -238,9 +239,7 @@ h2 {
 @media (max-width: 1199px) {
   h2 .last_name, h2 .given_names, h2 .birth {
     display: block;
-    text-align: center; } }
-
-@media (max-width: 991px) {
+    text-align: center; }
   .number-wrapper .header {
     text-align: center; }
   .number-wrapper .value {
@@ -249,7 +248,7 @@ h2 {
       float: none;
       margin: 0 auto; } }
 
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   .number-wrapper .header {
     margin-bottom: 0; } }
 

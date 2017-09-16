@@ -136,10 +136,9 @@ form {
 .arrow-right {
   width: 0;
   height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-
-  border-left: 10px solid;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 9px solid;
 }
 
 // -- Timeline
@@ -154,8 +153,8 @@ form {
 
   .arrow-right {
     position: absolute;
-    right: 0;
-    bottom: 1px;
+    right: -1px;
+    bottom: 0;
     transform: translateY(50%);
   }
 
@@ -269,7 +268,8 @@ h2 {
 
     .timeline {
       float: none;
-      top: 1.46rem;
+      margin-top: 1rem;
+      margin-bottom: 2.68rem;
       color: $card-color-text;
     }
   }
@@ -390,9 +390,7 @@ h2 {
       text-align: center;
     }
   }
-}
 
-@media (max-width: 991px) {
   .number-wrapper {
 
     .header {
@@ -410,7 +408,7 @@ h2 {
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   .number-wrapper .header {
     margin-bottom: 0;
   }
