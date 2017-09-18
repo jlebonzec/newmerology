@@ -154,7 +154,7 @@ class TestPsychic(AbstractTestMethod):
     computation_class = psychic.Computation
 
     def setUp(self):
-        self.expected_result = 3
+        self.expected_result = 21
         self.expected_example = [
             '1984-11-21',
             '21 → ' + str(self.expected_result)
