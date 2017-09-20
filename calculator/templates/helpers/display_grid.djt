@@ -6,7 +6,11 @@
             {% endif %}
 
             <td {% if cell_id == key %} class="current" {% endif %}>
-                {{ value.count }}
+                {% if value.count == 0 %}
+                    -
+                {% else %}
+                    {{ value.count }}
+                {% endif %}
             </td>
 
             {% if forloop.counter0|add:1|divisibleby:row_length %}
