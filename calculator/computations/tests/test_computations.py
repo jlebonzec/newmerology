@@ -29,6 +29,7 @@ from calculator.computations import (
     intimate,
     lifepath,
     personal_year,
+    personal_year_next,
     psychic,
     spiritual,
 )
@@ -199,6 +200,27 @@ class TestPersonalYear(AbstractTestMethod):
         self.expected_example = [
             ' + '.join([_('g.u_year').upper(), _('g.month').upper(), _('g.day').upper()]),
             '2013 + 11 + 21 → ' + str(self.expected_result)
+        ]
+
+    def test_result_spiritual(self):
+        """ The result should be the one expected """
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_spiritual(self):
+        """ The example should respect a certain format """
+        self.assertEqual(self.expected_example, self.method.example)
+
+
+class TestPersonalYearNext(AbstractTestMethod):
+
+    computation_class = personal_year_next.Computation
+
+    def setUp(self):
+        self.method.today = date(2013, 4, 25)
+        self.expected_result = 3
+        self.expected_example = [
+            ' + '.join([_('g.u_year').upper(), _('g.month').upper(), _('g.day').upper()]),
+            '2014 + 11 + 21 → ' + str(self.expected_result)
         ]
 
     def test_result_spiritual(self):
