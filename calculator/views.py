@@ -59,7 +59,7 @@ class PersonDeleteView(DeleteView):
 
     model = models.Person
     template_name = "calculator/person_delete.djt"
-    title = "LOL"
+    title = tranz("page.titles.person_delete")
     success_url = reverse_lazy("calc:people")
 
 
