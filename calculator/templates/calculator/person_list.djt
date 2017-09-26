@@ -7,15 +7,14 @@
     <ul>
     {% for person in object_list %}
         <li>
-            <a href="{% url 'calc:person' person.pk  %}">
+            <a href="{% url 'calc:person' person.pk %}">
                 {{ person.last_name|upper }} {{ person.given_names|title }} ({{ person.birth }})
+            </a>
+            <a class="delete red-text text-lighten-2" href="{% url 'calc:person_delete' person.pk %}">
+                <i class="material-icons">delete_forever</i>
             </a>
         </li>
     {% endfor %}
     </ul>
 
-{% endblock %}
-
-{% block javascript %}
-    {{ super }}
 {% endblock %}

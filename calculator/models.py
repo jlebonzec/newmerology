@@ -54,7 +54,7 @@ class Person(models.Model):
 
     @property
     def full_name(self):
-        return " ".join((self.last_name, self.given_names))
+        return " ".join((self.last_name.upper(), self.given_names.title()))
 
     @property
     def numbers(self):
@@ -82,7 +82,7 @@ class Person(models.Model):
         return "<Person: %s %s (%s)>" % (', '.join(names), self.last_name.upper(), self.birth)
 
     def __str__(self):
-        return "%s %s" % (self.first_name.title(), self.last_name.upper())
+        return self.full_name
 
     def refresh_numbers(self):
         computations = Number.objects.filter(position__gte=0)

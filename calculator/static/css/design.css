@@ -45,10 +45,14 @@ form {
     border-color: #f3e5f5; }
   form .picker__weekday-display {
     background-color: #380d6b; }
-  form .submit-form {
-    float: right; }
-    form .submit-form::after {
-      clear: both; }
+
+#new_analysis .submit-form {
+  float: right; }
+  #new_analysis .submit-form::after {
+    clear: both; }
+
+.delete i {
+  vertical-align: bottom; }
 
 .number-circle {
   border-radius: 50%;

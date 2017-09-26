@@ -1,0 +1,20 @@
+{% extends 'calculator/base.djt' %}
+{% load i18n%}
+{% load tranz %}
+{% block page_body %}
+    {{ super }}
+    <form action="" method="post" id="delete_person">
+        {% csrf_token %}
+        <p>
+            {% tranz "actions.confirm_delete" %} <br/>
+        </p>
+        <pre>{{ object|stringformat:'r' }}</pre>
+
+
+        <button type="submit" class="purple darken-4 btn-large waves-effect waves-light submit-form">
+            {% tranz "actions.ok" %}
+        </button>
+
+    </form>
+
+{% endblock %}

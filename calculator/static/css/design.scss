@@ -77,13 +77,23 @@ form {
   .picker__weekday-display {
     background-color: #380d6b;
   }
+}
 
+#new_analysis {
   .submit-form {
     float: right;
 
     &::after {
       clear: both;
     }
+  }
+}
+
+// -- Delete view
+.delete {
+
+  i {
+    vertical-align: bottom;
   }
 }
 

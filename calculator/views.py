@@ -3,9 +3,11 @@ import json
 from html import unescape
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, reverse
+from django.urls import reverse_lazy
 from django.utils.html import escape
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.views.generic.edit import DeleteView
 
 from django_translate.services import tranz
 
@@ -51,6 +53,14 @@ class PersonDetailView(DetailView):
     model = models.Person
     template_name = "calculator/person.djt"
     title = tranz("page.titles.person_detail")
+
+
+class PersonDeleteView(DeleteView):
+
+    model = models.Person
+    template_name = "calculator/person_delete.djt"
+    title = "LOL"
+    success_url = reverse_lazy("calc:people")
 
 
 # -- User hidden views (XHR)

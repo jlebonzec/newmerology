@@ -10,7 +10,7 @@
 
     <div class="row">
         <form class="col s12 l10 offset-l1 xl8 offset-xl2"
-              action="{%  url 'calc:home' %}" method="POST">
+              action="{%  url 'calc:home' %}" method="POST" id="new_analysis">
             {% csrf_token %}
             {% include 'forms/person.djt' with form=person_form %}
         </form>

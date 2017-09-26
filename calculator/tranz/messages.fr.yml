@@ -5,6 +5,7 @@ page:
   titles:
     person_list: "analyses passées"
     person_detail: "analyse"
+    person_delete: "confirmation de suppression"
 
 model:
   name:
@@ -44,6 +45,7 @@ results:
 
 actions:
   cancel: "Annuler"
+  confirm_delete: "Voulez-vous vraiment supprimer définitivement l'objet suivant ?"
   ok: "Valider"
   close: "Fermer"
   clear: "Effacer"
