@@ -337,8 +337,13 @@ h2 {
         margin: 0.5rem 0 0.4rem 0;
       }
 
+      p:not(:first-of-type) {
+        margin: 0.64rem 0;
+      }
+
       ul, ol {
         padding-left: 2.26rem;
+        margin: 0.64rem 0;
       }
 
       ul, ul > li {

@@ -211,8 +211,11 @@ h2 {
   .number-wrapper .explanations .explanation h6 {
     font-size: 1.0rem;
     margin: 0.5rem 0 0.4rem 0; }
+  .number-wrapper .explanations .explanation p:not(:first-of-type) {
+    margin: 0.64rem 0; }
   .number-wrapper .explanations .explanation ul, .number-wrapper .explanations .explanation ol {
-    padding-left: 2.26rem; }
+    padding-left: 2.26rem;
+    margin: 0.64rem 0; }
   .number-wrapper .explanations .explanation ul, .number-wrapper .explanations .explanation ul > li {
     list-style-type: disc; }
   .number-wrapper .explanations .explanation ol, .number-wrapper .explanations .explanation ol > li {
