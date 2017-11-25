@@ -109,7 +109,9 @@ form {
 
   border: 2px solid transparent;
   text-align: center;
-  font-size: 32px;  // font-size of h2 - 1
+  .circle-value {
+    font-size: 32px;  // font-size of h2 - 1
+  }
 }
 
 // -- Grid
@@ -189,6 +191,16 @@ form {
     top: -55px;
     font-size: 26px;
     font-weight: 200;
+
+    .number-circle {
+      width: 32px;
+      height: 32px;
+      overflow: visible;
+
+      .circle-value {
+        font-size: inherit;
+      }
+    }
   }
 
   .current {
@@ -281,6 +293,17 @@ h2 {
       margin-top: 1rem;
       margin-bottom: 2.68rem;
       color: $card-color-text;
+
+      .number-circle {
+        position: relative;
+        top: 3px;
+        border-width: 1px;
+
+        .circle-value {
+          position: relative;
+          top: -9px;
+        }
+      }
     }
   }
 

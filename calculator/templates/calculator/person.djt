@@ -48,7 +48,9 @@
                         {% display_timeline number.computation %}
                     {% else %}
                         <span class="number-circle" >
-                            {{ number.computation.result }}
+                            <span class="circle-value">
+                                {{ number.computation.result }}
+                            </span>
                         </span>
                     {% endif %}
                 </div>

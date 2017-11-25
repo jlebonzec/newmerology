@@ -3,9 +3,19 @@
         {% for period in periods %}
             <div class="line-section" style="width: {{ period.size }}; left: {{ period.start }}%">
                 <div class="bottom-text">{{ period.start }}</div>
-                <div class="top-text {% if period_id == forloop.counter0 %}current{% endif %}">
-                    {{ period.content }}
-                </div>
+                {% if period_id == forloop.counter0 %}
+                    <div class="top-text current">
+                        <span class="number-circle">
+                            <span class="circle-value">
+                                {{ period.content }}
+                            </span>
+                        </span>
+                    </div>
+                {% else %}
+                    <div class="top-text">
+                        {{ period.content }}
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
         <div class="arrow-right"></div>

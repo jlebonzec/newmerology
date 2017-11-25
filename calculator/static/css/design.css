@@ -61,8 +61,9 @@ form {
   height: 60px;
   padding: 5px;
   border: 2px solid transparent;
-  text-align: center;
-  font-size: 32px; }
+  text-align: center; }
+  .number-circle .circle-value {
+    font-size: 32px; }
 
 .grid {
   width: auto; }
@@ -118,6 +119,12 @@ form {
     top: -55px;
     font-size: 26px;
     font-weight: 200; }
+    .timeline .top-text .number-circle {
+      width: 32px;
+      height: 32px;
+      overflow: visible; }
+      .timeline .top-text .number-circle .circle-value {
+        font-size: inherit; }
   .timeline .current {
     font-weight: 400; }
   .timeline .now {
@@ -180,6 +187,13 @@ h2 {
     margin-top: 1rem;
     margin-bottom: 2.68rem;
     color: #f3e5f5; }
+    .number-wrapper .value .timeline .number-circle {
+      position: relative;
+      top: 3px;
+      border-width: 1px; }
+      .number-wrapper .value .timeline .number-circle .circle-value {
+        position: relative;
+        top: -9px; }
 
 .number-wrapper .explanations {
   margin-top: 0.46rem;
