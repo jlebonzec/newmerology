@@ -7,7 +7,7 @@ from . import models
 class PersonForm(forms.ModelForm):
     class Meta:
         model = models.Person
-        fields = ['given_names', 'last_name', 'birth']
+        fields = ['given_names', 'last_name', 'birth', 'gender']
 
         error_messages = {
             NON_FIELD_ERRORS: {
@@ -17,5 +17,5 @@ class PersonForm(forms.ModelForm):
 
     layout = Layout(
         Row('given_names', 'last_name'),
-        Row('birth')
+        Row('birth', 'gender')
     )

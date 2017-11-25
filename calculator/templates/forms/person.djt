@@ -5,6 +5,7 @@
     {% attr form.given_names 'widget' required %}required{% endattr %}
     {% attr form.last_name 'widget' required %}required{% endattr %}
     {% attr form.birth 'widget' required %}required{% endattr %}
+    {% attr form.gender 'widget' required %}required{% endattr %}
 
     {# -- Data validation #}
     {% attr form.given_names 'widget' data-validate %}1{% endattr %}
