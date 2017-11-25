@@ -108,28 +108,46 @@ class Number(models.Model):
     code = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=120, null=False, blank=False)
     description = models.TextField(default='', null=False, blank=True)
-    position = models.SmallIntegerField(default=0)  # -1 means disabled
+    _position = models.SmallIntegerField(default=0)  # -1 means disabled
     computation_method = models.CharField(max_length=80, null=True)
 
-    # TODO: Create methods to handle position while inserting or swapping
-
     class Meta:
-        ordering = ['position', 'code']
+        ordering = ['_position', 'code']
         verbose_name = _('model.name.number.single')
         verbose_name_plural = _('model.name.number.plural')
 
     def __init__(self, *args, **kwargs):
+        # Remove non understood arguments
+        position = kwargs.get('position')
+        if position is not None:
+            del kwargs['position']
+
         super(Number, self).__init__(*args, **kwargs)
         self._template = None
         self._result = None
         self._person = None
         self.computation = None
 
+        if position:
+            self.position = position
+
     def __repr__(self):
         return "<Number: %s>" % self.code
 
     def __str__(self):
         return self.name
+
+    # --------------------
+    # -- Getters/Setters --
+
+    @property
+    def position(self):
+        return self._position
+
+    @position.setter
+    def position(self, value):
+        self.make_room(value)
+        self._position = value
 
     @property
     def person(self):
@@ -154,6 +172,23 @@ class Number(models.Model):
     def result(self):
         self.refresh_explanations()
         return self._result
+
+    # -------------
+    # -- Helpers --
+
+    def make_room(self, position):
+        """ Create some room among the objects at a certain position
+        
+        :param position: The position we want room at
+        :type position: int
+        """
+        greater_equal = Number.objects.filter(_position__gte=position)
+        for number_to_move in greater_equal:
+            if number_to_move._position > position:
+                break  # We reached the end or an empty spot. Stop pushing.
+            position += 1
+            number_to_move._position = position
+            number_to_move.save()
 
     def refresh_explanations(self, force=False):
         """ Refresh the explanation. Will only work if self.computations and self.person are set.
