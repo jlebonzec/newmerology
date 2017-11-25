@@ -1,4 +1,4 @@
-""" FIXME
+""" Test the root functions of the calculator
 """
 
 from django.test import TestCase
