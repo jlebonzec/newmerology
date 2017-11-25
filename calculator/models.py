@@ -85,7 +85,7 @@ class Person(models.Model):
         return self.full_name
 
     def refresh_numbers(self):
-        computations = Number.objects.filter(position__gte=0)
+        computations = Number.objects.filter(_position__gte=0)
         for comp in computations:
             comp.person = self
         self._numbers = computations
