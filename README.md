@@ -28,6 +28,7 @@ By default you will be able to register a new person but the analysis will be em
 **Uniqueness of a person**
 
 It is important to remember that a person is considered unique given their full given names (first, middle and last names) and their birth date. Spaces matter. If any of those information differ, then the system will, instead of reusing an existing entry, create a new one.
+
 ### Adding a number
 Given that the computation method already exists, adding a number is a pretty straight-forward operation.
 You first need to open the application shell: `python manage.py shell`
@@ -42,13 +43,16 @@ number = Number(code="unique_code",
                 position=4)
 number.save()
 ```
+
 #### Required arguments
 `unique_code`  corresponds to the database identifier. It needs to be unique, preferably with no space nor special characters. It needs to be explicit enough so you as a human can remember what it corresponds to.
 `name` is what will be displayed in the User Interface. It is often the name of the number computed.
 `computation_method` corresponds to the module that should be use to compute the number. All available modules are by default in `calculator.computations`, though it can be overriden by changing the `calculator.config.COMPUTATION_METHODS_PATH`.
+
 #### Optional arguments
 `description` is an optional text to give more information about the computation. Often used if the name seem cryptic, it will be displayed below it, as a subtitle.
 `position` is really useful to state the order of the number. If you try to add a number at a position already occupied, it will be inserted *before* the occupant - like [list.insert](https://docs.python.org/2/tutorial/datastructures.html#more-on-lists) would. Note that a negative position *disables* the number: it will still be available in the database and the previous data will be kept, but won't be shown to the user anymore.
+
 #### Example
 Let's add a life path number to display:
 ```python
@@ -60,12 +64,15 @@ number = Number(code="life_path",
 number.save()
 ```
 If you refresh the result page you should now see your new number(s).
+
 ### Available routes
 - `/`: The root of the application. Proposes a form to perform a new analysis
 - `/person`: The list of past analysis. Allows to see and remove past entries. This route is accessible only directly, no link exists in the appication — yet.
 - `/person/<id>`: An analysis of the person having the given id.
+
 ## Contributing
 Thank you for your interest towards this project. Every contribution, big or small, is welcomed. You can freely create issues and pull requests, but please follow these guidelines:
+
 ### Issues
 - Test with several browsers first. If your problem only happens on a few of them, give the name and version (go in `about`), together with your OS version.
 - Describe explicitly what the problem is
