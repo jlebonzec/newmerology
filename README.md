@@ -109,7 +109,7 @@ python manage.py test calculator.tests calculator.computations.tests
 ## License
 This work is licensed under [AGPLv3](https://www.gnu.org/licenses/agpl.html)
 
-Please see the file named `COPYING` for more information.
+Please see the file named `COPYING.md` for more information.
 
 ## Contact
 
