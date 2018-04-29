@@ -23,12 +23,13 @@ from calculator.computations import utils
 import re
 
 
+re_vowels = re.compile(r'[aeiouy]', re.IGNORECASE)
+
+
 class Computation(utils.AbstractBaseComputation):
 
-    re_vowels = re.compile(r'[aeiouy]', re.IGNORECASE)
-
     def run(self):
-        consonants = re.sub(self.re_vowels, '_', self.full_name)
+        consonants = re.sub(re_vowels, '_', self.full_name)
         digits = utils.digitize(consonants)
 
         self._result = utils.simplify(digits)
