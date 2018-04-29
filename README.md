@@ -5,12 +5,12 @@ This software is a tool for numerologist. It aims at providing various "numbers"
 
 ## Features
 - Create analysis and automatically save it
-- Create generic and personnalised commentaries
+- Create generic and personalised commentaries
 - Delete a past analysis
 - Add and reorder numbers
 - Translatable interface
-  - For now the interface is only translated in English and French, and there is now support for database translations.
-  - In short, you can set up the application in any language you want (provided you add your translations), but the website will only be trully available in one language.
+  - For now the interface is only translated in English and French, and there is no support for database translations.
+  - In short, you can set up the application in any language you want (provided you add your translations), but the website will only be truly available in one language.
 
 ## Usage
 It is a django application, so you should refer to the [official django documentation](https://docs.djangoproject.com) about how to deploy it in production.
@@ -33,7 +33,7 @@ It is important to remember that a person is considered unique given their full 
 Given that the computation method already exists, adding a number is a pretty straight-forward operation.
 You first need to open the application shell: `python manage.py shell`
 
-Below is a generic example that you will need to personnalise.
+Below is a generic example that you will need to personalise.
 ```python
 from calculator.models import Number
 number = Number(code="unique_code",
@@ -59,7 +59,7 @@ Let's add a life path number to display:
 number = Number(code="life_path",
                 name="Life Path",
                 computation_method="lifepath",
-                desc="Main aspirations of the person"
+                desc="Main aspirations of the person",
                 position=0)
 number.save()
 ```
@@ -89,9 +89,7 @@ Thank you for your interest towards this project. Every contribution, big or sma
 ### In general
 Assume a positive mind-set.
 
-This project is done on free time, don't expect me to reply in the next hour, but don't hesitate to follow up if a week has passed.
-
-Respecting all those will avoid having comments that could be avoided.
+Remember that this project is done on free time. :-)
 
 ### Frameworks used
 Various frameworks have been used to ease the development:
