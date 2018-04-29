@@ -42,4 +42,3 @@ class TestNumber(TestCase):
         obtained = dict(zip(obtained_codes, obtained_positions))
 
         self.assertDictEqual(expected, obtained)
-

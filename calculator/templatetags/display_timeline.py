@@ -15,7 +15,6 @@
 
 from django import template
 
-from calculator.computations.time_computation import AbstractTimeComputation
 from calculator.config import TIMELINE_MAXIMUM
 
 
@@ -29,7 +28,7 @@ def display_timeline(timeline):
     If one period starts after the maximum, we normalize the values
 
     :param timeline: The timeline object
-    :type timeline: AbstractTimeComputation
+    :type timeline: calculator.computations.time_computation.AbstractTimeComputation
     """
     periods = timeline.periods
 

@@ -193,7 +193,7 @@ class Number(models.Model):
 
     def make_room(self, position):
         """ Create some room among the objects at a certain position
-        
+
         :param position: The position we want room at
         :type position: int
         """
