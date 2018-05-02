@@ -3,3 +3,5 @@ newmerology/instance*
 *.pyc
 db.sqlite3
 **/migrations/*
+venv
+.coverage
