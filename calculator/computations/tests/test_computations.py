@@ -85,6 +85,45 @@ class TestLifePath(AbstractTestMethod):
         ], self.method.example)
 
 
+class TestLifePathPower(TestCase):
+    """ Same as Life Path, but the result is a power """
+
+    person_pk = "test_computation_lifepath_power"
+    person = Person(
+        given_names="John Maximilien",
+        last_name="Doe-Smith",
+        birth=date(1974, 7, 28),
+        pk=person_pk
+    )
+    method = lifepath.Computation(person)
+
+    def setUp(self):
+        self.expected_result = 11
+
+    def test_coherence_result(self):
+        """ Asking for a result twice should yield the same data """
+        self.assertEqual(self.method.result, self.method.result)
+
+    def test_coherence_example(self):
+        """ Asking for an example twice should yield the same data """
+        self.assertEqual(self.method.example, self.method.example)
+
+    def test_result_lifepath(self):
+        """ The result should be the one expected """
+        res = self.method.result
+        self.assertEqual(res, self.method.result)
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_lifepath(self):
+        """ The example should respect a certain format """
+        res = self.method.example
+
+        self.assertEqual([
+            ' + '.join([_('g.year').upper(), _('g.month').upper(), _('g.day').upper()]),
+            '1974 + 07 + 28 → ' + str(self.expected_result)
+        ], self.method.example)
+
+
 class TestActive(AbstractTestMethod):
 
     computation_class = active.Computation

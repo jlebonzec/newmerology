@@ -51,6 +51,7 @@ class AbstractBaseComputation(object):
         """
         if not self._has_run:
             self.run()
+            self._has_run = True
         return self._result
 
     @property
@@ -61,6 +62,7 @@ class AbstractBaseComputation(object):
         """
         if not self._has_run:
             self.run()
+            self._has_run = True
         return self._example
 
     def run(self):
