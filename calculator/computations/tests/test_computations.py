@@ -53,25 +53,67 @@ from calculator.computations import (
 class AbstractTestMethod(TestCase):
 
     computation_class = None
+    expected_result = None
 
-    def __init__(self, *args, **kwargs):
-        super(AbstractTestMethod, self).__init__(*args, **kwargs)
-        self.person_pk = "test_computations"
-        self.person = Person(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.person_pk = "test_computations"
+        cls.person = Person(
             given_names="John Maximilien",
             last_name="Doe-Smith",
             birth=date(1984, 11, 21),
-            pk=self.person_pk
+            pk=cls.person_pk
         )
-        self.method = self.computation_class(self.person)
+        cls.method = cls.computation_class(cls.person)
+
+
+class TestLifePathPower(AbstractTestMethod):
+    """ Same as Life Path, but the result is a power """
+
+    computation_class = lifepath.Computation
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.person_pk = "test_computation_lifepath_power"
+        cls.person = Person(
+            given_names="John Maximilien",
+            last_name="Doe-Smith",
+            birth=date(1974, 7, 28),
+            pk=cls.person_pk
+        )
+        cls.method = cls.computation_class(cls.person)
+        cls.expected_result = 11
+
+    def test_coherence_result(self):
+        """ Asking for a result twice should yield the same data """
+        self.assertEqual(self.method.result, self.method.result)
+
+    def test_coherence_example(self):
+        """ Asking for an example twice should yield the same data """
+        self.assertEqual(self.method.example, self.method.example)
+
+    def test_result_lifepath(self):
+        """ The result should be the one expected """
+        self.assertEqual(self.expected_result, self.method.result)
+
+    def test_example_lifepath(self):
+        """ The example should respect a certain format """
+        self.assertEqual([
+            ' + '.join([_('g.year').upper(), _('g.month').upper(), _('g.day').upper()]),
+            '1974 + 07 + 28 → ' + str(self.expected_result)
+        ], self.method.example)
 
 
 class TestLifePath(AbstractTestMethod):
 
     computation_class = lifepath.Computation
 
-    def setUp(self):
-        self.expected_result = 9
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 9
 
     def test_result_lifepath(self):
         """ The result should be the one expected """
@@ -85,51 +127,14 @@ class TestLifePath(AbstractTestMethod):
         ], self.method.example)
 
 
-class TestLifePathPower(TestCase):
-    """ Same as Life Path, but the result is a power """
-
-    person_pk = "test_computation_lifepath_power"
-    person = Person(
-        given_names="John Maximilien",
-        last_name="Doe-Smith",
-        birth=date(1974, 7, 28),
-        pk=person_pk
-    )
-    method = lifepath.Computation(person)
-
-    def setUp(self):
-        self.expected_result = 11
-
-    def test_coherence_result(self):
-        """ Asking for a result twice should yield the same data """
-        self.assertEqual(self.method.result, self.method.result)
-
-    def test_coherence_example(self):
-        """ Asking for an example twice should yield the same data """
-        self.assertEqual(self.method.example, self.method.example)
-
-    def test_result_lifepath(self):
-        """ The result should be the one expected """
-        res = self.method.result
-        self.assertEqual(res, self.method.result)
-        self.assertEqual(self.expected_result, self.method.result)
-
-    def test_example_lifepath(self):
-        """ The example should respect a certain format """
-        res = self.method.example
-
-        self.assertEqual([
-            ' + '.join([_('g.year').upper(), _('g.month').upper(), _('g.day').upper()]),
-            '1974 + 07 + 28 → ' + str(self.expected_result)
-        ], self.method.example)
-
-
 class TestActive(AbstractTestMethod):
 
     computation_class = active.Computation
 
-    def setUp(self):
-        self.expected_result = 3
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 3
 
     def test_result_active(self):
         """ The result should be the one expected """
@@ -147,11 +152,13 @@ class TestExpression(AbstractTestMethod):
 
     computation_class = expression.Computation
 
-    def setUp(self):
-        self.expected_result = 6
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 6
+        cls.expected_example = [
             'DOE-SMITH JOHN MAXIMILIEN',
-            '465 14928 1685 4169493955 → ' + str(self.expected_result)
+            '465 14928 1685 4169493955 → ' + str(cls.expected_result)
         ]
 
     def test_result_expression(self):
@@ -167,11 +174,13 @@ class TestHeredity(AbstractTestMethod):
 
     computation_class = heredity.Computation
 
-    def setUp(self):
-        self.expected_result = 3
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 3
+        cls.expected_example = [
             'DOE-SMITH',
-            '465 14928 → ' + str(self.expected_result)
+            '465 14928 → ' + str(cls.expected_result)
         ]
 
     def test_result_heredity(self):
@@ -187,11 +196,13 @@ class TestIntimate(AbstractTestMethod):
 
     computation_class = intimate.Computation
 
-    def setUp(self):
-        self.expected_result = 1
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 1
+        cls.expected_example = [
             'D__-SM_TH J_HN M_X_M_L__N',
-            '4__ 14_28 1_85 4_6_4_3__5 → ' + str(self.expected_result)
+            '4__ 14_28 1_85 4_6_4_3__5 → ' + str(cls.expected_result)
         ]
 
     def test_result_intimate(self):
@@ -201,18 +212,19 @@ class TestIntimate(AbstractTestMethod):
     def test_example_intimate(self):
         """ The example should respect a certain format """
         self.assertEqual(self.expected_example, self.method.example)
-        self.assertEqual(self.expected_example, self.method.example)
 
 
 class TestPsychic(AbstractTestMethod):
 
     computation_class = psychic.Computation
 
-    def setUp(self):
-        self.expected_result = 21
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 21
+        cls.expected_example = [
             '1984-11-21',
-            '21 → ' + str(self.expected_result)
+            '21 → ' + str(cls.expected_result)
         ]
 
     def test_result_spiritual(self):
@@ -228,11 +240,13 @@ class TestSpiritual(AbstractTestMethod):
 
     computation_class = spiritual.Computation
 
-    def setUp(self):
-        self.expected_result = 5
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 5
+        cls.expected_example = [
             '_OE-__I__ _O__ _A_I_I_IE_',
-            '_65 __9__ _6__ _1_9_9_95_ → ' + str(self.expected_result)
+            '_65 __9__ _6__ _1_9_9_95_ → ' + str(cls.expected_result)
         ]
 
     def test_result_spiritual(self):
@@ -248,12 +262,14 @@ class TestPersonalYear(AbstractTestMethod):
 
     computation_class = personal_year.Computation
 
-    def setUp(self):
-        self.method.today = date(2013, 4, 25)
-        self.expected_result = 2
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.method.today = date(2013, 4, 25)
+        cls.expected_result = 2
+        cls.expected_example = [
             ' + '.join([_('g.u_year').upper(), _('g.month').upper(), _('g.day').upper()]),
-            '2013 + 11 + 21 → ' + str(self.expected_result)
+            '2013 + 11 + 21 → ' + str(cls.expected_result)
         ]
 
     def test_result_spiritual(self):
@@ -269,12 +285,14 @@ class TestPersonalYearNext(AbstractTestMethod):
 
     computation_class = personal_year_next.Computation
 
-    def setUp(self):
-        self.method.today = date(2013, 4, 25)
-        self.expected_result = 3
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.method.today = date(2013, 4, 25)
+        cls.expected_result = 3
+        cls.expected_example = [
             ' + '.join([_('g.u_year').upper(), _('g.month').upper(), _('g.day').upper()]),
-            '2014 + 11 + 21 → ' + str(self.expected_result)
+            '2014 + 11 + 21 → ' + str(cls.expected_result)
         ]
 
     def test_result_spiritual(self):
@@ -290,11 +308,13 @@ class TestCell1(AbstractTestMethod):
 
     computation_class = cell_1.Computation
 
-    def setUp(self):
-        self.expected_result = 3
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 3
+        cls.expected_example = [
             'DOE-SMITH JOHN MAXIMILIEN',
-            '____1_____1_____1________ → ' + str(self.expected_result)
+            '____1_____1_____1________ → ' + str(cls.expected_result)
         ]
 
     def test_result_cell_1(self):
@@ -310,11 +330,13 @@ class TestCell2(AbstractTestMethod):
 
     computation_class = cell_2.Computation
 
-    def setUp(self):
-        self.expected_result = 1
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 1
+        cls.expected_example = [
             'DOE-SMITH JOHN MAXIMILIEN',
-            '_______2_________________ → ' + str(self.expected_result)
+            '_______2_________________ → ' + str(cls.expected_result)
         ]
 
     def test_result_cell_2(self):
@@ -330,11 +352,13 @@ class TestCell3(AbstractTestMethod):
 
     computation_class = cell_3.Computation
 
-    def setUp(self):
-        self.expected_result = 1
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 1
+        cls.expected_example = [
             'DOE-SMITH JOHN MAXIMILIEN',
-            '_____________________3___ → ' + str(self.expected_result)
+            '_____________________3___ → ' + str(cls.expected_result)
         ]
 
     def test_result_cell_3(self):
@@ -350,11 +374,13 @@ class TestCell4(AbstractTestMethod):
 
     computation_class = cell_4.Computation
 
-    def setUp(self):
-        self.expected_result = 4
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 4
+        cls.expected_example = [
             'DOE-SMITH JOHN MAXIMILIEN',
-            '4____4_________4___4_____ → ' + str(self.expected_result)
+            '4____4_________4___4_____ → ' + str(cls.expected_result)
         ]
 
     def test_result_cell_4(self):
@@ -370,11 +396,13 @@ class TestCell5(AbstractTestMethod):
 
     computation_class = cell_5.Computation
 
-    def setUp(self):
-        self.expected_result = 4
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 4
+        cls.expected_example = [
             'DOE-SMITH JOHN MAXIMILIEN',
-            '__5__________5_________55 → ' + str(self.expected_result)
+            '__5__________5_________55 → ' + str(cls.expected_result)
         ]
 
     def test_result_cell_5(self):
@@ -390,11 +418,13 @@ class TestCell6(AbstractTestMethod):
 
     computation_class = cell_6.Computation
 
-    def setUp(self):
-        self.expected_result = 3
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 3
+        cls.expected_example = [
             'DOE-SMITH JOHN MAXIMILIEN',
-            '_6_________6_____6_______ → ' + str(self.expected_result)
+            '_6_________6_____6_______ → ' + str(cls.expected_result)
         ]
 
     def test_result_cell_6(self):
@@ -410,11 +440,13 @@ class TestCell7(AbstractTestMethod):
 
     computation_class = cell_7.Computation
 
-    def setUp(self):
-        self.expected_result = 0
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 0
+        cls.expected_example = [
             'DOE-SMITH JOHN MAXIMILIEN',
-            '_________________________ → ' + str(self.expected_result)
+            '_________________________ → ' + str(cls.expected_result)
         ]
 
     def test_result_cell_7(self):
@@ -430,11 +462,13 @@ class TestCell8(AbstractTestMethod):
 
     computation_class = cell_8.Computation
 
-    def setUp(self):
-        self.expected_result = 2
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 2
+        cls.expected_example = [
             'DOE-SMITH JOHN MAXIMILIEN',
-            '________8___8____________ → ' + str(self.expected_result)
+            '________8___8____________ → ' + str(cls.expected_result)
         ]
 
     def test_result_cell_8(self):
@@ -450,11 +484,13 @@ class TestCell9(AbstractTestMethod):
 
     computation_class = cell_9.Computation
 
-    def setUp(self):
-        self.expected_result = 4
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 4
+        cls.expected_example = [
             'DOE-SMITH JOHN MAXIMILIEN',
-            '______9___________9_9_9__ → ' + str(self.expected_result)
+            '______9___________9_9_9__ → ' + str(cls.expected_result)
         ]
 
     def test_result_cell_9(self):
@@ -470,11 +506,13 @@ class TestAction1(AbstractTestMethod):
 
     computation_class = action_1.Computation
 
-    def setUp(self):
-        self.expected_result = 5
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 5
+        cls.expected_example = [
             ' + '.join([_('g.month').upper(), _('g.day').upper()]),
-            '11 + 21 → ' + str(self.expected_result)
+            '11 + 21 → ' + str(cls.expected_result)
         ]
 
     def test_result_action_1(self):
@@ -490,11 +528,13 @@ class TestAction2(AbstractTestMethod):
 
     computation_class = action_2.Computation
 
-    def setUp(self):
-        self.expected_result = 7
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 7
+        cls.expected_example = [
             ' + '.join([_('g.year').upper(), _('g.day').upper()]),
-            '1984 + 21 → ' + str(self.expected_result)
+            '1984 + 21 → ' + str(cls.expected_result)
         ]
 
     def test_result_action_2(self):
@@ -510,11 +550,13 @@ class TestAction3(AbstractTestMethod):
 
     computation_class = action_3.Computation
 
-    def setUp(self):
-        self.expected_result = 3
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 3
+        cls.expected_example = [
             ' + '.join([_('g.action_1').upper(), _('g.action_2').upper()]),
-            '5 + 7 → ' + str(self.expected_result)
+            '5 + 7 → ' + str(cls.expected_result)
         ]
 
     def test_result_action_3(self):
@@ -530,11 +572,13 @@ class TestAction4(AbstractTestMethod):
 
     computation_class = action_4.Computation
 
-    def setUp(self):
-        self.expected_result = 6
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 6
+        cls.expected_example = [
             ' + '.join([_('g.year').upper(), _('g.month').upper()]),
-            '1984 + 11 → ' + str(self.expected_result)
+            '1984 + 11 → ' + str(cls.expected_result)
         ]
 
     def test_result_action_4(self):
@@ -550,11 +594,13 @@ class TestCycle1(AbstractTestMethod):
 
     computation_class = cycle_1.Computation
 
-    def setUp(self):
-        self.expected_result = 11
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 11
+        cls.expected_example = [
             _('g.month').upper(),
-            '11 → ' + str(self.expected_result)
+            '11 → ' + str(cls.expected_result)
         ]
 
     def test_result_cycle_1(self):
@@ -570,11 +616,13 @@ class TestCycle2(AbstractTestMethod):
 
     computation_class = cycle_2.Computation
 
-    def setUp(self):
-        self.expected_result = 3
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 3
+        cls.expected_example = [
             _('g.day').upper(),
-            '21 → ' + str(self.expected_result)
+            '21 → ' + str(cls.expected_result)
         ]
 
     def test_result_cycle_2(self):
@@ -590,11 +638,13 @@ class TestCycle3(AbstractTestMethod):
 
     computation_class = cycle_3.Computation
 
-    def setUp(self):
-        self.expected_result = 22
-        self.expected_example = [
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.expected_result = 22
+        cls.expected_example = [
             _('g.year').upper(),
-            '1984 → ' + str(self.expected_result)
+            '1984 → ' + str(cls.expected_result)
         ]
 
     def test_result_cycle_3(self):

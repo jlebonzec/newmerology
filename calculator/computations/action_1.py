@@ -21,5 +21,5 @@ from calculator.computations.time_computation import AbstractActionComputation
 class Computation(AbstractActionComputation):
 
     def __init__(self, person):
-        super(AbstractActionComputation, self).__init__(person)
+        super(Computation, self).__init__(person)
         self.period_id = 0

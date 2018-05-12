@@ -38,12 +38,12 @@ class AbstractTimeComputation(AbstractBaseComputation):
     :type person: models.Person
     """
 
-    def __init__(self, person):
+    def __init__(self, person, cache_prefix=""):
         super(AbstractTimeComputation, self).__init__(person)
         self.period_id = None
 
-        cache_prefix = "person_time_"
-        self._cache_key = cache_prefix + str(person.pk)
+        self._cache_root = "person_time"
+        self._cache_key = "_".join([self._cache_root, cache_prefix, str(person.pk)])
         self._periods = cache.get(self._cache_key, [])
         # self._periods = [{'start': 0, 'content': 5}, {'start': 18, 'content': 1}, ...]
 
@@ -68,6 +68,9 @@ class AbstractTimeComputation(AbstractBaseComputation):
 
 class AbstractActionComputation(AbstractTimeComputation):
     """ AbstractActionComputation. Base class for all action computations. """
+
+    def __init__(self, person):
+        super(AbstractActionComputation, self).__init__(person, cache_prefix="action")
 
     def generate_periods(self):
         """ Return the periods and content of the actions """
@@ -121,6 +124,9 @@ class AbstractActionComputation(AbstractTimeComputation):
 
 class AbstractCycleComputation(AbstractTimeComputation):
     """ AbstractCycleComputation. Base class for all cycle computations. """
+
+    def __init__(self, person):
+        super(AbstractCycleComputation, self).__init__(person, cache_prefix="cycle")
 
     def generate_periods(self):
         cycle_1_start = 0
