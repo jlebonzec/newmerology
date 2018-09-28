@@ -1,4 +1,6 @@
-{% comment %}
+{% extends 'calculator/base.djt' %}
+
+{% comment License %}
     This file is part of Newmerology.
 
     Newmerology is free software: you can redistribute it and/or modify
@@ -15,7 +17,6 @@
     along with Newmerology.  If not, see <https://www.gnu.org/licenses/agpl.html>.
 {% endcomment %}
 
-{% extends 'calculator/base.djt' %}
 {% load i18n%}
 {% load tranz %}
 {% load display_grid %}
