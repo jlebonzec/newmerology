@@ -44,11 +44,38 @@ def calculation(request):
         inst = person_form.instance
 
         # Get or create from DB
-        person, created = models.Person.objects.all().get_or_create(
-            given_names=inst.given_names,
-            last_name=inst.last_name,
-            birth=inst.birth
-        )
+        try:
+            # Wide selection (no homonym)
+            person, created = models.Person.objects.all().get_or_create(
+                given_names=inst.given_names,
+                last_name=inst.last_name,
+                birth=inst.birth,
+                defaults={'gender': inst.gender}
+            )
+        except models.Person.MultipleObjectsReturned:
+            # Narrowed selection (for homonyms)
+            person, created = models.Person.objects.all().get_or_create(
+                given_names=inst.given_names,
+                last_name=inst.last_name,
+                birth=inst.birth,
+                gender=inst.gender
+            )
+        else:
+            if not created:
+                # Backwards compatibility: set gender if given
+                if not person.gender:
+                    person.gender = inst.gender
+                    person.save()
+
+            if person.gender != inst.gender:
+                # We have a homonym, create it
+                person, created = models.Person.objects.all().get_or_create(
+                    given_names=inst.given_names,
+                    last_name=inst.last_name,
+                    birth=inst.birth,
+                    gender=inst.gender
+                )
+
         return redirect(reverse('calc:person', kwargs={'pk': person.pk}))
 
     return HttpResponse(render(

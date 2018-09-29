@@ -57,8 +57,8 @@ class Person(models.Model):
     _age = None
 
     class Meta:
-        unique_together = ('given_names', 'last_name', 'birth')
-        index_together = ('given_names', 'last_name', 'birth')
+        # unique_together = ('given_names', 'last_name', 'birth')
+        # index_together = ('given_names', 'last_name', 'birth')
         ordering = ["last_name", "given_names", "birth"]
         verbose_name = _('model.name.person.single')
         verbose_name_plural = _('model.name.person.plural')
