@@ -11,6 +11,19 @@ This software is a tool for numerologist. It aims at providing various "numbers"
 - Translatable interface
   - For now the interface is only translated in English and French, and there is no support for database translations.
   - In short, you can set up the application in any language you want (provided you add your translations), but the website will only be truly available in one language.
+  
+## Screenshots
+
+Custom text (Markdown editable)
+![image](https://user-images.githubusercontent.com/10447820/197407199-c2cbebac-21a9-4917-a923-d66400daa796.png)
+
+Some numbers are date-related, it then shows as a time arrow (circled is the number being commented on, the yellow dot indicate the current age)
+
+![image](https://user-images.githubusercontent.com/10447820/197407062-bcb63f80-98c3-447d-bc3c-a85d0f90092c.png)
+
+Some numbers are referred into a grid (the number being commented on in circled)
+
+![image](https://user-images.githubusercontent.com/10447820/197407106-68952947-6879-48de-8605-2baed8498567.png)
 
 ## Usage
 It is a django application, so you should refer to the [official django documentation](https://docs.djangoproject.com) about how to deploy it in production.
